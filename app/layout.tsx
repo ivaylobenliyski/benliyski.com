@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Lora, Space_Grotesk } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Nav from "@/components/Nav";
 
@@ -37,6 +38,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${lora.variable} ${spaceGrotesk.variable} h-full`}>
+      <head>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-3GLEN3FTPV" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-3GLEN3FTPV');
+        `}</Script>
+      </head>
       <body className="min-h-full flex flex-col antialiased">
         <Nav />
         <main className="flex-1">{children}</main>
