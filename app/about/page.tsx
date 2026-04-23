@@ -34,6 +34,27 @@ export default function About() {
         </p>
       </div>
 
+      {/* Logo preview — both variants in context */}
+      <div className="mt-16 pt-8 border-t border-[#F3E9D7]/10">
+        <p className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#F3E9D7]/40 uppercase tracking-widest mb-6">
+          Logo variants
+        </p>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col items-center gap-3 bg-[#16302B] border border-[#F3E9D7]/10 rounded-2xl p-8">
+            <img src="/logo.svg" width={80} height={80} alt="Logo on dark" />
+            <span className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#F3E9D7]/40">
+              Cream — dark bg
+            </span>
+          </div>
+          <div className="flex flex-col items-center gap-3 bg-[#F3E9D7] rounded-2xl p-8">
+            <img src="/logo-dark.svg" width={80} height={80} alt="Logo on light" />
+            <span className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#16302B]/50 text-sm">
+              Green — light bg
+            </span>
+          </div>
+        </div>
+      </div>
+
       <div className="mt-12 pt-8 border-t border-[#F3E9D7]/10">
         <a
           href="https://www.linkedin.com/in/ivaylobenliyski"
