@@ -13,6 +13,7 @@ export type Post = {
   content: string | null;
   published_at: string | null;
   published: boolean;
+  category: "blog" | "vocabulary";
   created_at: string;
 };
 
