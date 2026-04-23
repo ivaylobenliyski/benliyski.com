@@ -7,6 +7,8 @@ export const metadata = {
 export default function About() {
   return (
     <div className="max-w-2xl mx-auto px-6 py-20">
+
+      {/* Header */}
       <div className="flex items-center gap-4 mb-14">
         <Logo size={40} />
         <h1 className="font-[family-name:var(--font-space-grotesk)] text-4xl font-bold text-[#F3E9D7]">
@@ -14,47 +16,48 @@ export default function About() {
         </h1>
       </div>
 
+      {/* Bio */}
       <div className="flex flex-col gap-6 font-[family-name:var(--font-lora)] text-[#F3E9D7]/75 leading-relaxed text-base">
         <p>
-          Hey — I&apos;m Ivaylo, based in Sofia. I spend a lot of time thinking about AI: what it can actually do, where it&apos;s genuinely useful, and what it changes about how we work and think.
+          I&apos;m Ivaylo — Director of Product at{" "}
+          <span className="text-[#F3E9D7]">Playtech</span>, based in Sofia, Bulgaria.
+          I work at the intersection of regulated iGaming markets and AI, scoping and building
+          products that make complex systems smarter, faster, and more human.
         </p>
         <p>
-          This site is where I put that thinking. The{" "}
+          My day job is product leadership — translating messy business problems into things
+          that actually ship. But the thread running through everything I do is AI: how it changes
+          what&apos;s possible, how teams adopt it, and what it means for the industries it touches.
+        </p>
+        <p>
+          I&apos;m currently pursuing a Master&apos;s in{" "}
+          <span className="text-[#F3E9D7]">AI in Business</span> at IBS Bulgaria — because I
+          think the most interesting work right now happens at the boundary between deep domain
+          expertise and emerging technology. iGaming is one of the most regulated, fast-moving,
+          and data-rich industries there is. AI in that context is genuinely hard and genuinely
+          exciting.
+        </p>
+        <p>
+          This site is where I think out loud. The{" "}
           <a href="/ai-series" className="text-[#F3E9D7] underline underline-offset-4 hover:text-white transition-colors">
             AI series
           </a>{" "}
-          is educational — I wanted to write the explainers I wished existed when I was starting out. The{" "}
+          is my attempt to explain what&apos;s actually happening in AI — without the hype and
+          without the unnecessary complexity. The{" "}
           <a href="/projects" className="text-[#F3E9D7] underline underline-offset-4 hover:text-white transition-colors">
             projects
           </a>{" "}
-          section is where the building happens.
+          section is where I build things to test my own thinking.
         </p>
         <p>
-          The logo is a circle with an inscribed square — a nod to a lyric that stuck with me: <em>&ldquo;square the circle, the circle source of his power.&rdquo;</em> Something about that image felt right.
+          The logo is a nod to a lyric that stuck with me:{" "}
+          <em>&ldquo;square the circle, the circle source of his power.&rdquo;</em>{" "}
+          Something about the tension in that image — precision and infinity, structure and
+          freedom — felt like the right symbol for what I&apos;m trying to do.
         </p>
       </div>
 
-      {/* Logo preview — both variants in context */}
-      <div className="mt-16 pt-8 border-t border-[#F3E9D7]/10">
-        <p className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#F3E9D7]/40 uppercase tracking-widest mb-6">
-          Logo variants
-        </p>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col items-center gap-3 bg-[#16302B] border border-[#F3E9D7]/10 rounded-2xl p-8">
-            <img src="/logo.svg" width={80} height={80} alt="Logo on dark" />
-            <span className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#F3E9D7]/40">
-              Cream — dark bg
-            </span>
-          </div>
-          <div className="flex flex-col items-center gap-3 bg-[#F3E9D7] rounded-2xl p-8">
-            <img src="/logo-dark.svg" width={80} height={80} alt="Logo on light" />
-            <span className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#16302B]/50 text-sm">
-              Green — light bg
-            </span>
-          </div>
-        </div>
-      </div>
-
+      {/* Contact */}
       <div className="mt-12 pt-8 border-t border-[#F3E9D7]/10 flex flex-col gap-4">
         <a
           href="https://www.linkedin.com/in/ivaylo-benliyski-483933178/"
