@@ -42,16 +42,16 @@ export default function Home() {
 
           <div className="flex gap-4 mt-2">
             <Link
-              href="/ai-series"
+              href="/blog"
               className="font-[family-name:var(--font-space-grotesk)] text-sm bg-[#F3E9D7] text-[#16302B] px-6 py-3 rounded-full font-semibold hover:bg-white transition-colors"
             >
-              AI Series
+              Blog
             </Link>
             <Link
-              href="/projects"
+              href="/vocabulary"
               className="font-[family-name:var(--font-space-grotesk)] text-sm border border-[#F3E9D7]/30 text-[#F3E9D7] px-6 py-3 rounded-full font-semibold hover:border-[#F3E9D7]/70 transition-colors"
             >
-              Projects
+              Vocabulary
             </Link>
           </div>
         </div>
@@ -64,19 +64,34 @@ export default function Home() {
       </section>
 
       {/* Cards section */}
-      <section className="max-w-4xl mx-auto w-full px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <section className="max-w-4xl mx-auto w-full px-6 py-24 grid grid-cols-1 md:grid-cols-3 gap-4">
         <Link
-          href="/ai-series"
+          href="/blog"
           className="group bg-[#1e3d35] border border-[#F3E9D7]/10 rounded-2xl p-8 hover:border-[#F3E9D7]/30 transition-all hover:-translate-y-0.5"
         >
           <p className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#F3E9D7]/40 uppercase tracking-widest mb-3">
-            Series
+            Blog
           </p>
           <h2 className="font-[family-name:var(--font-space-grotesk)] text-xl font-semibold text-[#F3E9D7] mb-3 group-hover:text-white transition-colors">
-            AI in Plain Sight
+            AI Trends
           </h2>
           <p className="font-[family-name:var(--font-lora)] text-[#F3E9D7]/55 text-sm leading-relaxed">
-            An educational series breaking down how AI actually works — no hype, just clarity.
+            What&apos;s actually happening in AI — and what it means for the industries it&apos;s touching.
+          </p>
+        </Link>
+
+        <Link
+          href="/vocabulary"
+          className="group bg-[#1e3d35] border border-[#F3E9D7]/10 rounded-2xl p-8 hover:border-[#F3E9D7]/30 transition-all hover:-translate-y-0.5"
+        >
+          <p className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#F3E9D7]/40 uppercase tracking-widest mb-3">
+            Vocabulary
+          </p>
+          <h2 className="font-[family-name:var(--font-space-grotesk)] text-xl font-semibold text-[#F3E9D7] mb-3 group-hover:text-white transition-colors">
+            The Jargon, Decoded
+          </h2>
+          <p className="font-[family-name:var(--font-lora)] text-[#F3E9D7]/55 text-sm leading-relaxed">
+            AI terms explained without the fluff — for curious people, not just engineers.
           </p>
         </Link>
 
