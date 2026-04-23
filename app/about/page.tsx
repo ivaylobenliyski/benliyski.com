@@ -57,7 +57,7 @@ export default function About() {
 
       <div className="mt-12 pt-8 border-t border-[#F3E9D7]/10">
         <a
-          href="https://www.linkedin.com/in/ivaylobenliyski"
+          href="https://www.linkedin.com/in/ivaylo-benliyski-483933178/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 font-[family-name:var(--font-space-grotesk)] text-sm text-[#F3E9D7]/60 hover:text-[#F3E9D7] transition-colors"
