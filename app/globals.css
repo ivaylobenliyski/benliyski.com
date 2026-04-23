@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #16302B;
+  --fg: #F3E9D7;
+  --card: #1e3d35;
+  --accent: #F3E9D7;
+  --muted: #a89880;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-card: var(--card);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --font-casual: var(--font-lora);
+  --font-tech: var(--font-space-grotesk);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+::selection {
+  background: #F3E9D7;
+  color: #16302B;
+}
