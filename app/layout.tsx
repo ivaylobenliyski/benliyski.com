@@ -18,6 +18,10 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Ivaylo Benliyski",
   description: "AI series, side projects, and thoughts on technology.",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
   openGraph: {
     title: "Ivaylo Benliyski",
     description: "AI series, side projects, and thoughts on technology.",
