@@ -1,13 +1,24 @@
+import { supabase, type Post } from "@/lib/supabase";
+
 export const metadata = {
   title: "AI Series — Ivaylo Benliyski",
   description: "An educational series on AI — how it works, where it's going, and what it means.",
 };
 
-const posts: { title: string; description: string; date: string; slug: string }[] = [
-  // Posts will be added here as content comes in
-];
+export const revalidate = 60;
 
-export default function AISeries() {
+async function getPosts(): Promise<Post[]> {
+  const { data } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("published", true)
+    .order("published_at", { ascending: false });
+  return data ?? [];
+}
+
+export default async function AISeries() {
+  const posts = await getPosts();
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-20">
       <div className="mb-14">
@@ -36,15 +47,21 @@ export default function AISeries() {
                 href={`/ai-series/${post.slug}`}
                 className="group block bg-[#1e3d35] border border-[#F3E9D7]/10 rounded-2xl p-6 hover:border-[#F3E9D7]/30 transition-colors"
               >
-                <p className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#F3E9D7]/40 mb-2">
-                  {post.date}
-                </p>
+                {post.published_at && (
+                  <p className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#F3E9D7]/40 mb-2">
+                    {new Date(post.published_at).toLocaleDateString("en-GB", {
+                      day: "numeric", month: "long", year: "numeric",
+                    })}
+                  </p>
+                )}
                 <h2 className="font-[family-name:var(--font-space-grotesk)] text-lg font-semibold text-[#F3E9D7] mb-1 group-hover:text-white transition-colors">
                   {post.title}
                 </h2>
-                <p className="font-[family-name:var(--font-lora)] text-sm text-[#F3E9D7]/60 leading-relaxed">
-                  {post.description}
-                </p>
+                {post.description && (
+                  <p className="font-[family-name:var(--font-lora)] text-sm text-[#F3E9D7]/60 leading-relaxed">
+                    {post.description}
+                  </p>
+                )}
               </a>
             </li>
           ))}
