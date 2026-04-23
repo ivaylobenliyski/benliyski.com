@@ -50,10 +50,18 @@ export default function About() {
           section is where I build things to test my own thinking.
         </p>
         <p>
-          The logo is a nod to a lyric that stuck with me:{" "}
+          The logo started with a lyric —{" "}
           <em>&ldquo;square the circle, the circle source of his power.&rdquo;</em>{" "}
-          Something about the tension in that image — precision and infinity, structure and
-          freedom — felt like the right symbol for what I&apos;m trying to do.
+          That sent me down a rabbit hole. Squaring the circle is one of the oldest unsolved
+          problems in mathematics: construct a square with the exact same area as a given circle,
+          using only a compass and straightedge. In 1882 it was proven{" "}
+          <span className="text-[#F3E9D7]">impossible</span>.
+        </p>
+        <p>
+          I like that. Not as a symbol of failure — but as a metaphor for the kind of problems
+          worth working on. The ones where two fundamentally incompatible things need to be
+          reconciled anyway. Structure and creativity. Regulation and innovation. Human intuition
+          and machine intelligence. You know it can&apos;t be perfect. You try regardless.
         </p>
       </div>
 
