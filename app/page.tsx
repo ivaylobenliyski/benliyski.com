@@ -40,8 +40,8 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-3 mt-2">
-            <div className="flex gap-4">
+          <div className="flex flex-col items-center gap-3 mt-2 w-full">
+            <div className="flex gap-4 justify-center">
               <Link
                 href="/blog"
                 className="font-[family-name:var(--font-space-grotesk)] text-sm bg-[#F3E9D7] text-[#16302B] px-6 py-3 rounded-full font-semibold hover:bg-white transition-colors"
@@ -55,7 +55,7 @@ export default function Home() {
                 Vocabulary
               </Link>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 justify-center w-full">
               <a
                 href="https://t.me/+rvYIKg52lkA4OGY8"
                 target="_blank"
