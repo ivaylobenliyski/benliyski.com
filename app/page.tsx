@@ -84,19 +84,19 @@ export default async function Home() {
               Every morning I send out the handful of AI stories worth your time — summarised, in plain language.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
               <a
                 href={TELEGRAM_DAILY}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 font-tech text-base font-semibold bg-fg text-bg px-6 py-3.5 rounded-full hover:bg-white transition-colors"
+                className="inline-flex items-center justify-center gap-2.5 whitespace-nowrap font-tech text-base font-semibold bg-fg text-bg px-6 py-3.5 rounded-full hover:bg-white transition-colors"
               >
                 <TelegramIcon size={18} />
                 Join the daily digest
               </a>
               <a
                 href="#digest"
-                className="inline-flex items-center justify-center gap-2 font-tech text-base font-semibold border border-fg/30 text-fg px-6 py-3.5 rounded-full hover:border-fg/70 transition-colors"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-tech text-base font-semibold border border-fg/30 text-fg px-6 py-3.5 rounded-full hover:border-fg/70 transition-colors"
               >
                 Compare daily vs weekly
               </a>
