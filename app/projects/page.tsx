@@ -1,4 +1,7 @@
 import { supabase, type Project } from "@/lib/supabase";
+import PageHeader from "@/components/PageHeader";
+import EmptyState from "@/components/EmptyState";
+import { ArrowIcon } from "@/components/Icons";
 
 export const metadata = {
   title: "Projects — Ivaylo Benliyski",
@@ -17,73 +20,68 @@ async function getProjects(): Promise<Project[]> {
 
 const statusLabel: Record<string, string> = {
   live: "Live",
-  "in-progress": "In Progress",
+  "in-progress": "In progress",
   planned: "Planned",
 };
 
-const statusColor: Record<string, string> = {
-  live: "bg-emerald-900/50 text-emerald-300 border-emerald-700/40",
-  "in-progress": "bg-amber-900/50 text-amber-300 border-amber-700/40",
-  planned: "bg-[#F3E9D7]/5 text-[#F3E9D7]/40 border-[#F3E9D7]/10",
+const statusStyle: Record<string, string> = {
+  live: "border-sage/40 text-sage",
+  "in-progress": "border-[#d9b98a]/40 text-[#d9b98a]",
+  planned: "border-line text-fg/50",
 };
 
 export default async function Projects() {
   const projects = await getProjects();
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-20">
-      <div className="mb-14">
-        <p className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#F3E9D7]/40 uppercase tracking-widest mb-3">
-          Work
-        </p>
-        <h1 className="font-[family-name:var(--font-space-grotesk)] text-4xl font-bold text-[#F3E9D7] mb-4">
-          Projects
-        </h1>
-        <p className="font-[family-name:var(--font-lora)] text-lg text-[#F3E9D7]/60 italic max-w-xl leading-relaxed">
-          Things I&apos;ve built, am building, or plan to build. Mostly AI, mostly useful.
-        </p>
-      </div>
+    <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-24">
+      <PageHeader
+        eyebrow="Work"
+        title="Projects"
+        intro="Things I've built, am building, or plan to build. Mostly AI, mostly useful."
+      />
 
       {projects.length === 0 ? (
-        <div className="border border-dashed border-[#F3E9D7]/20 rounded-2xl p-12 text-center">
-          <p className="font-[family-name:var(--font-lora)] text-[#F3E9D7]/40 italic">
-            Projects coming soon.
-          </p>
-        </div>
+        <EmptyState message="Project write-ups are on their way." />
       ) : (
-        <ul className="flex flex-col gap-4">
-          {projects.map((project) => (
-            <li key={project.id}>
-              <div className="bg-[#1e3d35] border border-[#F3E9D7]/10 rounded-2xl p-6">
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <h2 className="font-[family-name:var(--font-space-grotesk)] text-lg font-semibold text-[#F3E9D7]">
-                    {project.url ? (
-                      <a href={project.url} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                        {project.name}
-                      </a>
-                    ) : project.name}
-                  </h2>
-                  <span className={`shrink-0 font-[family-name:var(--font-space-grotesk)] text-xs px-2.5 py-1 rounded-full border ${statusColor[project.status] ?? statusColor.planned}`}>
-                    {statusLabel[project.status] ?? project.status}
-                  </span>
-                </div>
-                {project.description && (
-                  <p className="font-[family-name:var(--font-lora)] text-sm text-[#F3E9D7]/60 leading-relaxed mb-4">
-                    {project.description}
-                  </p>
-                )}
-                {project.tags && project.tags.length > 0 && (
-                  <div className="flex items-center gap-2 flex-wrap">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="font-[family-name:var(--font-space-grotesk)] text-xs text-[#F3E9D7]/40 border border-[#F3E9D7]/10 rounded-full px-2.5 py-0.5">
-                        {tag}
-                      </span>
-                    ))}
+        <ul className="grid md:grid-cols-2 gap-4">
+          {projects.map((project) => {
+            const Wrapper = project.url ? "a" : "div";
+            return (
+              <li key={project.id}>
+                <Wrapper
+                  {...(project.url && { href: project.url, target: "_blank", rel: "noopener noreferrer" })}
+                  className={`group flex flex-col h-full bg-card border border-line rounded-2xl p-6 sm:p-7 ${
+                    project.url ? "hover:border-fg/40 transition-colors" : ""
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-4 mb-3">
+                    <h2 className="font-tech text-xl font-semibold text-fg">{project.name}</h2>
+                    <span className={`shrink-0 font-tech text-xs px-2.5 py-1 rounded-full border ${statusStyle[project.status] ?? statusStyle.planned}`}>
+                      {statusLabel[project.status] ?? project.status}
+                    </span>
                   </div>
-                )}
-              </div>
-            </li>
-          ))}
+                  {project.description && (
+                    <p className="font-casual text-fg/70 leading-relaxed mb-5 flex-1">{project.description}</p>
+                  )}
+                  <div className="flex items-center justify-between gap-4 mt-auto">
+                    {project.tags && project.tags.length > 0 ? (
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {project.tags.map((tag) => (
+                          <span key={tag} className="font-tech text-xs text-fg/55 border border-line rounded-full px-2.5 py-0.5">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    ) : <span />}
+                    {project.url && (
+                      <ArrowIcon size={18} className="shrink-0 text-fg/40 group-hover:text-fg transition-colors" />
+                    )}
+                  </div>
+                </Wrapper>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

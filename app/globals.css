@@ -4,7 +4,9 @@
   --bg: #16302B;
   --fg: #F3E9D7;
   --card: #1e3d35;
+  --line: #2b4c43;
   --accent: #F3E9D7;
+  --sage: #9DBFA8;
   --muted: #a89880;
 }
 
@@ -12,10 +14,17 @@
   --color-bg: var(--bg);
   --color-fg: var(--fg);
   --color-card: var(--card);
+  --color-line: var(--line);
   --color-accent: var(--accent);
+  --color-sage: var(--sage);
   --color-muted: var(--muted);
   --font-casual: var(--font-lora);
   --font-tech: var(--font-space-grotesk);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -29,7 +38,26 @@ body {
   color: #16302B;
 }
 
+:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 @keyframes logoSpin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
