@@ -112,7 +112,7 @@ async function answerQuestion(botToken: string, chatId: string, msg: TelegramMes
     answer = await askClaude(buildUserPrompt(msg), digestContext);
   } catch (err) {
     console.error('Q&A failed:', err);
-    answer = '❌ Something went wrong while answering. Try again in a moment.';
+    answer = `❌ Something went wrong while answering: ${err instanceof Error ? err.message : String(err)}`;
   }
 
   const chunks = splitForTelegram(answer);
@@ -190,45 +190,37 @@ async function askClaude(userPrompt: string, digestContext: string): Promise<str
     `- Output plain text only: no markdown (no **, #, or tables). Short paragraphs or simple "- " bullets are fine.\n\n` +
     (digestContext || 'No digest context is available right now.');
 
-  const tools: Anthropic.Beta.BetaToolUnion[] = [
-    { type: 'web_fetch_20260209', name: 'web_fetch', max_uses: 3 },
-    { type: 'web_search_20260209', name: 'web_search', max_uses: 3 },
+  // Haiku 5.5 uses the basic web tool versions (the _20260209 variants are Opus/Sonnet only)
+  const tools: Anthropic.ToolUnion[] = [
+    { type: 'web_fetch_20250910', name: 'web_fetch', max_uses: 3 },
+    { type: 'web_search_20250305', name: 'web_search', max_uses: 3 },
   ];
-  const messages: Anthropic.Beta.BetaMessageParam[] = [{ role: 'user', content: userPrompt }];
-
-  let response = await anthropic.beta.messages.create({
-    model: 'claude-opus-5-5',
-    max_tokens: 16000,
+  const messages: Anthropic.MessageParam[] = [{ role: 'user', content: userPrompt }];
+  const ask = () => anthropic.messages.create({
+    model: 'claude-haiku-5-5',
+    max_tokens: 16000,                 // thinking counts toward this
     output_config: { effort: 'low' },
-    betas: ['server-side-fallback-2026-07-01'],
-    fallbacks: 'default',
     system,
     tools,
     messages,
   });
 
+  let response = await ask();
+
   // Long server-tool turns can pause; resend the paused turn to let the server resume.
   for (let i = 0; response.stop_reason === 'pause_turn' && i < 3; i++) {
     messages.push({ role: 'assistant', content: response.content });
-    response = await anthropic.beta.messages.create({
-      model: 'claude-opus-5-5',
-      max_tokens: 16000,
-      output_config: { effort: 'low' },
-      betas: ['server-side-fallback-2026-07-01'],
-      fallbacks: 'default',
-      system,
-      tools,
-      messages,
-    });
+    response = await ask();
     messages.pop();
   }
 
+  // Haiku 5.5 has no server-side fallback for refusals
   if (response.stop_reason === 'refusal') {
     return '⚠️ I can\'t help with that one.';
   }
 
   const text = response.content
-    .filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === 'text')
+    .filter((b): b is Anthropic.TextBlock => b.type === 'text')
     .map(b => b.text)
     .join('')
     .trim();
