@@ -15,6 +15,7 @@ import {
 } from "@/components/foundations/ArticleParts";
 import PixelsAndFilters from "@/components/foundations/vision-models/PixelsAndFilters";
 import { DiffusionStrip, FooledFigure, HeroArt, PatchesFigure, VisionTasks } from "@/components/foundations/vision-models/Figures";
+import MythOrFact, { type MythOrFactItem } from "@/components/foundations/MythOrFact";
 import { topicHref } from "@/lib/foundations";
 import { SOURCES } from "./data";
 
@@ -40,7 +41,7 @@ const TOC = [
   { id: "generation", label: "Generating images" },
   { id: "in-use", label: "Where you meet them" },
   { id: "fooled", label: "How they get fooled" },
-  { id: "myths", label: "Myths vs. facts" },
+  { id: "myths", label: "Myth or fact?" },
   { id: "sources", label: "Sources" },
 ];
 
@@ -68,6 +69,15 @@ export default function VisionModels() {
       fact: "Diffusion models start from random noise and repeatedly remove noise, guided by your description, producing new pixels rather than copying pieces.",
       src: ["ddpm", "latent-diffusion"],
     },
+  ];
+
+  const mythOrFact: MythOrFactItem[] = [
+    { statement: myths[0].myth, isMyth: true, explanation: <>{myths[0].fact}{myths[0].src.length > 0 && c(...myths[0].src)}</> },
+    { statement: "Adding noise people can't see can make a vision model mistake a panda for a gibbon.", isMyth: false, explanation: <>In a famous example, a tiny calculated change turned “panda, 57.7%” into “gibbon, 99.3%” — while the photo looked identical to people.{c("adversarial")}</> },
+    { statement: myths[1].myth, isMyth: true, explanation: <>{myths[1].fact}{myths[1].src.length > 0 && c(...myths[1].src)}</> },
+    { statement: myths[2].myth, isMyth: true, explanation: <>{myths[2].fact}{myths[2].src.length > 0 && c(...myths[2].src)}</> },
+    { statement: "One influential vision model learned from 400 million images paired with captions from the web.", isMyth: false, explanation: <>OpenAI&apos;s CLIP (2021) learned which caption goes with which picture, and matched a classic ImageNet model without using any of its labels.{c("clip")}</> },
+    { statement: myths[3].myth, isMyth: true, explanation: <>{myths[3].fact}{myths[3].src.length > 0 && c(...myths[3].src)}</> },
   ];
 
   const jsonLd = {
@@ -207,20 +217,9 @@ export default function VisionModels() {
             </p>
           </Section>
 
-          <Section id="myths" kicker="Fact check" title="Myths vs. facts">
-            <div className="grid gap-3">
-              {myths.map((m) => (
-                <div key={m.myth} className="rounded-2xl border border-line bg-card p-5 sm:p-6">
-                  <p className="font-tech text-[11px] uppercase tracking-[0.16em] text-[#e3a08a] mb-1">Myth</p>
-                  <p className="font-tech text-lg font-semibold text-fg mb-3 line-through decoration-[#e3a08a]/60">{m.myth}</p>
-                  <p className="font-tech text-[11px] uppercase tracking-[0.16em] text-sage mb-1">Fact</p>
-                  <p className="font-casual text-fg/80 leading-relaxed text-base">
-                    {m.fact}
-                    {m.src.length > 0 && c(...m.src)}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <Section id="myths" kicker="Fact check" title="Myth or fact?">
+            <p>Six statements about vision models. Some are true, some are popular misconceptions. Can you tell which is which?</p>
+            <MythOrFact items={mythOrFact} />
           </Section>
 
           <Takeaways

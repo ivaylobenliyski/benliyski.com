@@ -15,6 +15,7 @@ import {
 } from "@/components/foundations/ArticleParts";
 import TrainingPlayground from "@/components/foundations/how-machines-learn/TrainingPlayground";
 import { FitComparison, HeroArt, KindsOfLearning, LayeredNetwork, LearningLoop, TrainVsUse } from "@/components/foundations/how-machines-learn/Figures";
+import MythOrFact, { type MythOrFactItem } from "@/components/foundations/MythOrFact";
 import { topicHref } from "@/lib/foundations";
 import { SOURCES } from "./data";
 
@@ -39,7 +40,7 @@ const TOC = [
   { id: "overfitting", label: "Learning vs. memorising" },
   { id: "data", label: "Data decides" },
   { id: "training-vs-using", label: "Training vs. using" },
-  { id: "myths", label: "Myths vs. facts" },
+  { id: "myths", label: "Myth or fact?" },
   { id: "sources", label: "Sources" },
 ];
 
@@ -67,6 +68,15 @@ export default function HowMachinesLearn() {
       fact: "Past a point, a model starts memorising quirks of its training data and gets worse on new examples. That's why teams always test on data the model has never seen.",
       src: ["goodfellow"],
     },
+  ];
+
+  const mythOrFact: MythOrFactItem[] = [
+    { statement: myths[0].myth, isMyth: true, explanation: <>{myths[0].fact}{myths[0].src.length > 0 && c(...myths[0].src)}</> },
+    { statement: "GPT-3 has about 175 billion adjustable numbers inside it.", isMyth: false, explanation: <>Those numbers are its weights, also called parameters — and training tuned every one of them.{c("gpt3")}</> },
+    { statement: myths[1].myth, isMyth: true, explanation: <>{myths[1].fact}{myths[1].src.length > 0 && c(...myths[1].src)}</> },
+    { statement: myths[2].myth, isMyth: true, explanation: <>{myths[2].fact}{myths[2].src.length > 0 && c(...myths[2].src)}</> },
+    { statement: "Commercial face-analysis systems have been far less accurate for darker-skinned women than for lighter-skinned men.", isMyth: false, explanation: <>In 2018 tests, error rates reached up to 34.7% for darker-skinned women, against at most 0.8% for lighter-skinned men.{c("gender-shades")}</> },
+    { statement: myths[3].myth, isMyth: true, explanation: <>{myths[3].fact}{myths[3].src.length > 0 && c(...myths[3].src)}</> },
   ];
 
   const jsonLd = {
@@ -215,20 +225,9 @@ export default function HowMachinesLearn() {
             </Figure>
           </Section>
 
-          <Section id="myths" kicker="Fact check" title="Myths vs. facts">
-            <div className="grid gap-3">
-              {myths.map((m) => (
-                <div key={m.myth} className="rounded-2xl border border-line bg-card p-5 sm:p-6">
-                  <p className="font-tech text-[11px] uppercase tracking-[0.16em] text-[#e3a08a] mb-1">Myth</p>
-                  <p className="font-tech text-lg font-semibold text-fg mb-3 line-through decoration-[#e3a08a]/60">{m.myth}</p>
-                  <p className="font-tech text-[11px] uppercase tracking-[0.16em] text-sage mb-1">Fact</p>
-                  <p className="font-casual text-fg/80 leading-relaxed text-base">
-                    {m.fact}
-                    {m.src.length > 0 && c(...m.src)}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <Section id="myths" kicker="Fact check" title="Myth or fact?">
+            <p>Six statements about how machines learn. Some are true, some are popular misconceptions. Can you tell which is which?</p>
+            <MythOrFact items={mythOrFact} />
           </Section>
 
           <Takeaways

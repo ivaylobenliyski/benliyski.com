@@ -16,6 +16,7 @@ import {
 import Timeline from "@/components/foundations/history/Timeline";
 import PerceptronPlayground from "@/components/foundations/history/PerceptronPlayground";
 import { HeroArt, ImitationGame, NeuronDiagram, RulesVsLearning, SeasonsChart, ThreeIngredients } from "@/components/foundations/history/Figures";
+import MythOrFact, { type MythOrFactItem } from "@/components/foundations/MythOrFact";
 import { topicHref } from "@/lib/foundations";
 import { ERAS, EVENTS, SOURCES } from "./data";
 
@@ -40,7 +41,7 @@ const TOC = [
   { id: "comeback", label: "The deep learning comeback" },
   { id: "generative", label: "The generative era" },
   { id: "timeline", label: "Full timeline" },
-  { id: "myths", label: "Myths vs. facts" },
+  { id: "myths", label: "Myth or fact?" },
   { id: "sources", label: "Sources" },
 ];
 
@@ -69,6 +70,15 @@ const MYTHS = [
 
 export default function HistoryOfAI() {
   const c = (...ids: string[]) => <Cite ids={ids} sources={SOURCES} />;
+
+  const mythOrFact: MythOrFactItem[] = [
+    { statement: MYTHS[0].myth, isMyth: true, explanation: <>{MYTHS[0].fact}{MYTHS[0].sources.length > 0 && c(...MYTHS[0].sources)}</> },
+    { statement: "A chatbot from 1966 convinced some people it was human.", isMyth: false, explanation: <>ELIZA only matched keywords, yet its creator Joseph Weizenbaum wrote that some people were hard to convince it wasn&apos;t human.{c("eliza")}</> },
+    { statement: MYTHS[1].myth, isMyth: true, explanation: <>{MYTHS[1].fact}{MYTHS[1].sources.length > 0 && c(...MYTHS[1].sources)}</> },
+    { statement: MYTHS[2].myth, isMyth: true, explanation: <>{MYTHS[2].fact}{MYTHS[2].sources.length > 0 && c(...MYTHS[2].sources)}</> },
+    { statement: "AI researchers won Nobel prizes in both physics and chemistry in 2024.", isMyth: false, explanation: <>Physics went to John Hopfield and Geoffrey Hinton for work on neural networks; half of Chemistry went to Demis Hassabis and John Jumper for AlphaFold.{c("nobel-physics", "nobel-chemistry")}</> },
+    { statement: MYTHS[3].myth, isMyth: true, explanation: <>{MYTHS[3].fact}{MYTHS[3].sources.length > 0 && c(...MYTHS[3].sources)}</> },
+  ];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -262,20 +272,9 @@ export default function HistoryOfAI() {
       </div>
 
       <div className="max-w-3xl">
-        <Section id="myths" kicker="Fact check" title="Myths vs. facts">
-          <div className="grid gap-3 not-prose">
-            {MYTHS.map((m) => (
-              <div key={m.myth} className="rounded-2xl border border-line bg-card p-5 sm:p-6">
-                <p className="font-tech text-[11px] uppercase tracking-[0.16em] text-[#e3a08a] mb-1">Myth</p>
-                <p className="font-tech text-lg font-semibold text-fg mb-3 line-through decoration-[#e3a08a]/60">{m.myth}</p>
-                <p className="font-tech text-[11px] uppercase tracking-[0.16em] text-sage mb-1">Fact</p>
-                <p className="font-casual text-fg/80 leading-relaxed text-base">
-                  {m.fact}
-                  {c(...m.sources)}
-                </p>
-              </div>
-            ))}
-          </div>
+        <Section id="myths" kicker="Fact check" title="Myth or fact?">
+          <p>Six statements about the history of AI. Some are true, some are popular misconceptions. Can you tell which is which?</p>
+          <MythOrFact items={mythOrFact} />
         </Section>
 
         <Takeaways

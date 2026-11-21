@@ -16,6 +16,7 @@ import {
 import PipelineCompare from "@/components/foundations/multimodal-models/PipelineCompare";
 import MeaningSpace from "@/components/foundations/multimodal-models/MeaningSpace";
 import { Capabilities, EverythingTokens, HeroArt } from "@/components/foundations/multimodal-models/Figures";
+import MythOrFact, { type MythOrFactItem } from "@/components/foundations/MythOrFact";
 import { topicHref } from "@/lib/foundations";
 import { SOURCES } from "./data";
 
@@ -39,7 +40,7 @@ const TOC = [
   { id: "native", label: "Chained vs. native" },
   { id: "can-do", label: "What they can do" },
   { id: "limits", label: "Limits and risks" },
-  { id: "myths", label: "Myths vs. facts" },
+  { id: "myths", label: "Myth or fact?" },
   { id: "sources", label: "Sources" },
 ];
 
@@ -67,6 +68,15 @@ export default function MultimodalModels() {
       fact: "Describing is not the same as understanding. The same models that describe a scene fluently can also mention objects that simply aren't in it.",
       src: ["pope"],
     },
+  ];
+
+  const mythOrFact: MythOrFactItem[] = [
+    { statement: myths[0].myth, isMyth: true, explanation: <>{myths[0].fact}{myths[0].src.length > 0 && c(...myths[0].src)}</> },
+    { statement: "Earlier voice assistants turned your speech into plain text before the AI model saw it.", isMyth: false, explanation: <>ChatGPT&apos;s earlier Voice Mode chained three models. OpenAI said this lost information such as tone and multiple speakers, and replies took 2.8–5.4 seconds on average.{c("gpt4o")}</> },
+    { statement: myths[1].myth, isMyth: true, explanation: <>{myths[1].fact}{myths[1].src.length > 0 && c(...myths[1].src)}</> },
+    { statement: myths[2].myth, isMyth: true, explanation: <>{myths[2].fact}{myths[2].src.length > 0 && c(...myths[2].src)}</> },
+    { statement: "Some AI models can operate a computer by looking at screenshots.", isMyth: false, explanation: <>Anthropic released “computer use” as a public beta in October 2024: the model looks at screenshots, then moves the mouse, clicks and types. It was described as experimental.{c("computer-use")}</> },
+    { statement: myths[3].myth, isMyth: true, explanation: <>{myths[3].fact}{myths[3].src.length > 0 && c(...myths[3].src)}</> },
   ];
 
   const jsonLd = {
@@ -183,20 +193,9 @@ export default function MultimodalModels() {
             </Callout>
           </Section>
 
-          <Section id="myths" kicker="Fact check" title="Myths vs. facts">
-            <div className="grid gap-3">
-              {myths.map((m) => (
-                <div key={m.myth} className="rounded-2xl border border-line bg-card p-5 sm:p-6">
-                  <p className="font-tech text-[11px] uppercase tracking-[0.16em] text-[#e3a08a] mb-1">Myth</p>
-                  <p className="font-tech text-lg font-semibold text-fg mb-3 line-through decoration-[#e3a08a]/60">{m.myth}</p>
-                  <p className="font-tech text-[11px] uppercase tracking-[0.16em] text-sage mb-1">Fact</p>
-                  <p className="font-casual text-fg/80 leading-relaxed text-base">
-                    {m.fact}
-                    {m.src.length > 0 && c(...m.src)}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <Section id="myths" kicker="Fact check" title="Myth or fact?">
+            <p>Six statements about multimodal AI. Some are true, some are popular misconceptions. Can you tell which is which?</p>
+            <MythOrFact items={mythOrFact} />
           </Section>
 
           <Takeaways

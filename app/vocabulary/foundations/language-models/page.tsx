@@ -16,6 +16,7 @@ import {
 import NextWord from "@/components/foundations/language-models/NextWord";
 import Attention from "@/components/foundations/language-models/Attention";
 import { BuildPipeline, ContextWindow, HeroArt, StrengthsLimits, TokenStrip } from "@/components/foundations/language-models/Figures";
+import MythOrFact, { type MythOrFactItem } from "@/components/foundations/MythOrFact";
 import { topicHref } from "@/lib/foundations";
 import { SOURCES } from "./data";
 
@@ -40,7 +41,7 @@ const TOC = [
   { id: "scale", label: "Why size matters" },
   { id: "context", label: "Context windows" },
   { id: "limits", label: "Strengths and limits" },
-  { id: "myths", label: "Myths vs. facts" },
+  { id: "myths", label: "Myth or fact?" },
   { id: "sources", label: "Sources" },
 ];
 
@@ -68,6 +69,15 @@ export default function LanguageModels() {
       fact: "It isn't trying to deceive. Training and testing have tended to reward a confident guess over “I don't know”, which encourages plausible-sounding errors.",
       src: ["hallucinate"],
     },
+  ];
+
+  const mythOrFact: MythOrFactItem[] = [
+    { statement: myths[0].myth, isMyth: true, explanation: <>{myths[0].fact}{myths[0].src.length > 0 && c(...myths[0].src)}</> },
+    { statement: "Language models read text in chunks called tokens, not individual letters.", isMyth: false, explanation: <>A token is often a whole common word or a piece of one — about ¾ of a word in English. That&apos;s partly why letter-counting puzzles can trip models up.{c("tokens")}</> },
+    { statement: myths[1].myth, isMyth: true, explanation: <>{myths[1].fact}{myths[1].src.length > 0 && c(...myths[1].src)}</> },
+    { statement: myths[2].myth, isMyth: true, explanation: <>{myths[2].fact}{myths[2].src.length > 0 && c(...myths[2].src)}</> },
+    { statement: "A smaller language model trained on more text can beat a much bigger one.", isMyth: false, explanation: <>DeepMind&apos;s 70-billion-weight Chinchilla, trained on more text, outperformed much larger models, including the 175-billion-weight GPT-3.{c("chinchilla")}</> },
+    { statement: myths[3].myth, isMyth: true, explanation: <>{myths[3].fact}{myths[3].src.length > 0 && c(...myths[3].src)}</> },
   ];
 
   const jsonLd = {
@@ -209,20 +219,9 @@ export default function LanguageModels() {
             </p>
           </Section>
 
-          <Section id="myths" kicker="Fact check" title="Myths vs. facts">
-            <div className="grid gap-3">
-              {myths.map((m) => (
-                <div key={m.myth} className="rounded-2xl border border-line bg-card p-5 sm:p-6">
-                  <p className="font-tech text-[11px] uppercase tracking-[0.16em] text-[#e3a08a] mb-1">Myth</p>
-                  <p className="font-tech text-lg font-semibold text-fg mb-3 line-through decoration-[#e3a08a]/60">{m.myth}</p>
-                  <p className="font-tech text-[11px] uppercase tracking-[0.16em] text-sage mb-1">Fact</p>
-                  <p className="font-casual text-fg/80 leading-relaxed text-base">
-                    {m.fact}
-                    {m.src.length > 0 && c(...m.src)}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <Section id="myths" kicker="Fact check" title="Myth or fact?">
+            <p>Six statements about language models. Some are true, some are popular misconceptions. Can you tell which is which?</p>
+            <MythOrFact items={mythOrFact} />
           </Section>
 
           <Takeaways
