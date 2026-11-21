@@ -9,7 +9,7 @@
 
 export type TopicStatus = "live" | "soon";
 
-export type Cluster = "big-picture" | "how-it-works" | "model-types";
+export type Cluster = "big-picture" | "how-it-works" | "model-types" | "in-action";
 
 export type Topic = {
   slug: string;
@@ -32,6 +32,7 @@ export const CLUSTERS: Record<Cluster, { label: string; blurb: string }> = {
   "big-picture": { label: "The big picture", blurb: "What AI is and how we got here." },
   "how-it-works": { label: "How it works", blurb: "How machines learn from data." },
   "model-types": { label: "Kinds of models", blurb: "What different models are built to do." },
+  "in-action": { label: "AI in action", blurb: "Systems that use models to get things done." },
 };
 
 export const TOPICS: Topic[] = [
@@ -44,7 +45,7 @@ export const TOPICS: Topic[] = [
     status: "live",
     cluster: "big-picture",
     leadsTo: ["history-of-ai", "how-machines-learn"],
-    pos: { x: 13, y: 30 },
+    pos: { x: 11, y: 30 },
   },
   {
     slug: "history-of-ai",
@@ -55,7 +56,7 @@ export const TOPICS: Topic[] = [
     status: "live",
     cluster: "big-picture",
     leadsTo: ["how-machines-learn"],
-    pos: { x: 13, y: 74 },
+    pos: { x: 11, y: 74 },
   },
   {
     slug: "how-machines-learn",
@@ -66,7 +67,7 @@ export const TOPICS: Topic[] = [
     status: "live",
     cluster: "how-it-works",
     leadsTo: ["language-models", "vision-models"],
-    pos: { x: 45, y: 52 },
+    pos: { x: 33, y: 52 },
   },
   {
     slug: "language-models",
@@ -76,8 +77,8 @@ export const TOPICS: Topic[] = [
       "Models that learn from text to predict what comes next — and why that simple trick turns into writing, coding and conversation.",
     status: "live",
     cluster: "model-types",
-    leadsTo: ["multimodal-models"],
-    pos: { x: 74, y: 22 },
+    leadsTo: ["multimodal-models", "ai-agents"],
+    pos: { x: 54, y: 22 },
   },
   {
     slug: "vision-models",
@@ -88,7 +89,7 @@ export const TOPICS: Topic[] = [
     status: "live",
     cluster: "model-types",
     leadsTo: ["multimodal-models"],
-    pos: { x: 74, y: 82 },
+    pos: { x: 54, y: 82 },
   },
   {
     slug: "multimodal-models",
@@ -98,8 +99,19 @@ export const TOPICS: Topic[] = [
       "Why the line between language and vision models has mostly disappeared, and what it means when one model can read, look and listen.",
     status: "live",
     cluster: "model-types",
+    leadsTo: ["ai-agents"],
+    pos: { x: 69, y: 52 },
+  },
+  {
+    slug: "ai-agents",
+    title: "AI agents",
+    tagline: "Models that plan, use tools and act",
+    summary:
+      "What happens when a model doesn't just answer, but takes steps: searching, using apps, writing code and checking its own work — and why that's powerful and risky.",
+    status: "live",
+    cluster: "in-action",
     leadsTo: [],
-    pos: { x: 90, y: 52 },
+    pos: { x: 89, y: 52 },
   },
 ];
 

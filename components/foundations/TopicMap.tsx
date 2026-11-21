@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowIcon } from "@/components/Icons";
 import { CLUSTERS, TOPICS, topicHref, type Cluster, type Topic } from "@/lib/foundations";
 
-const CLUSTER_ORDER: Cluster[] = ["big-picture", "how-it-works", "model-types"];
+const CLUSTER_ORDER: Cluster[] = ["big-picture", "how-it-works", "model-types", "in-action"];
 
 const EDGES = TOPICS.flatMap((from) =>
   from.leadsTo.map((slug) => ({ from, to: TOPICS.find((t) => t.slug === slug)! })).filter((e) => e.to),
@@ -39,7 +39,7 @@ export default function TopicMap() {
       <div className="hidden lg:block">
         <div className="relative rounded-3xl border border-line bg-card/40 overflow-hidden">
           {/* Cluster columns */}
-          <div className="absolute inset-0 grid grid-cols-[30%_30%_40%] pointer-events-none" aria-hidden="true">
+          <div className="absolute inset-0 grid grid-cols-[22%_22%_34%_22%] pointer-events-none" aria-hidden="true">
             {CLUSTER_ORDER.map((c, i) => (
               <div key={c} className={`pt-6 px-6 ${i > 0 ? "border-l border-dashed border-line" : ""}`}>
                 <p className="font-tech text-[11px] text-sage uppercase tracking-[0.18em]">{CLUSTERS[c].label}</p>
@@ -74,7 +74,7 @@ export default function TopicMap() {
             {TOPICS.map((topic) => {
               const selected = topic.slug === active.slug;
               const dim = !isLinked(topic.slug);
-              const className = `absolute -translate-x-1/2 -translate-y-1/2 w-[188px] text-left rounded-2xl border px-4 py-3.5 transition-all duration-300 ${
+              const className = `absolute -translate-x-1/2 -translate-y-1/2 w-[172px] xl:w-[188px] text-left rounded-2xl border px-4 py-3.5 transition-all duration-300 ${
                 selected
                   ? "bg-fg text-bg border-fg shadow-[0_10px_40px_-12px_rgba(0,0,0,0.6)] scale-[1.04]"
                   : topic.status === "live"
