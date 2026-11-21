@@ -224,7 +224,7 @@ function renderPng(data: CanvasData, font: string): string {
   ctx.textBaseline = "alphabetic";
   ctx.textAlign = "right";
   ctx.fillText(
-    "The AI Business Model Canvas © 2018 Christopher Lomas  ·  filled in at benliyski.com/ai-canvas",
+    "The AI Business Model Canvas © 2018 Christopher Lomas  ·  filled in at benliyski.com/projects/ai-canvas",
     W - pad,
     H - 26,
   );
@@ -379,7 +379,7 @@ export default function AICanvas() {
         </div>
 
         <p className={styles.credit}>
-          The AI Business Model Canvas © 2018 Christopher Lomas. Fillable version at benliyski.com/ai-canvas.
+          The AI Business Model Canvas © 2018 Christopher Lomas. Fillable version at benliyski.com/projects/ai-canvas.
         </p>
       </section>
 
