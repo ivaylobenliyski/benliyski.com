@@ -61,3 +61,10 @@ body {
     transition: none !important;
   }
 }
+
+/* Print: only the page content (used by the AI Canvas "Save as PDF") */
+@media print {
+  @page { size: A4 landscape; margin: 10mm; }
+  body > header, body > footer { display: none !important; }
+  body { background: #fff; color: #16302B; }
+}

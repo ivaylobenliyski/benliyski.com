@@ -7,5 +7,6 @@ export const NAV_LINKS = [
   { href: "/blog", label: "Blog" },
   { href: "/vocabulary", label: "Vocabulary" },
   { href: "/projects", label: "Projects" },
+  { href: "/ai-canvas", label: "AI Canvas" },
   { href: "/about", label: "About" },
 ];

@@ -1,0 +1,275 @@
+/* A cream "paper" sheet that mirrors the printed AI Business Model Canvas */
+.sheet {
+  --paper: #f3e9d7;
+  --ink: #16302b;
+  --accent: #9dbfa8;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.metaRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.metaBox {
+  display: flex;
+  flex-direction: column;
+  background: var(--accent);
+  padding: 8px 10px 10px;
+  border-radius: 4px;
+}
+
+.metaSmall {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.metaInline {
+  display: flex;
+  flex-direction: column;
+}
+
+.metaLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.metaInput,
+.metaInputSmall {
+  width: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 3px;
+  padding: 6px 8px;
+  font-size: 0.875rem;
+  resize: none;
+  outline: none;
+}
+
+.metaInput:focus,
+.metaInputSmall:focus,
+.textarea:focus {
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+.metaInputSmall {
+  padding: 4px 6px;
+  min-width: 0;
+}
+
+/* Mobile: stacked blocks in reading order */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "value"
+    "users"
+    "partners"
+    "inputs"
+    "outputs"
+    "skills"
+    "trainers"
+    "resources"
+    "channels"
+    "costs"
+    "revenue";
+  border: 2px solid var(--ink);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--ink);
+  padding: 10px 12px 12px;
+  min-height: 160px;
+  cursor: text;
+}
+
+.blockLabel {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.textarea {
+  flex: 1;
+  width: 100%;
+  min-height: 110px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  resize: none;
+  outline: none;
+  border-radius: 4px;
+  padding: 4px;
+  margin: -4px;
+  field-sizing: content;
+}
+
+.textarea::placeholder {
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+  font-style: italic;
+}
+
+.printText {
+  display: none;
+  white-space: pre-wrap;
+  font-size: 9pt;
+  line-height: 1.35;
+}
+
+.credit {
+  font-size: 0.7rem;
+  text-align: right;
+  margin-top: 10px;
+  opacity: 0.6;
+}
+
+@media (min-width: 640px) {
+  .metaRow {
+    grid-template-columns: 1fr 1fr;
+  }
+  .metaSmall {
+    grid-column: span 2;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "value     users"
+      "partners  resources"
+      "inputs    outputs"
+      "skills    trainers"
+      "channels  channels"
+      "costs     revenue";
+  }
+}
+
+/* Desktop: the canonical canvas layout */
+@media (min-width: 1024px) {
+  .sheet {
+    padding: 28px 32px 18px;
+  }
+  .head {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+  .title {
+    font-size: 1.85rem;
+    align-self: center;
+  }
+  .metaRow {
+    grid-template-columns: 200px 200px 150px;
+  }
+  .metaSmall {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: minmax(230px, auto) minmax(230px, auto) minmax(180px, auto);
+    grid-template-areas:
+      "partners inputs  value skills   users resources"
+      "partners outputs value trainers users channels"
+      "costs    costs   costs revenue  revenue revenue";
+  }
+  .block {
+    min-height: 0;
+  }
+  .textarea {
+    min-height: 0;
+  }
+}
+
+@media print {
+  .sheet {
+    border-radius: 0;
+    padding: 0;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .head {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 18pt;
+    align-self: center;
+  }
+  .metaRow {
+    grid-template-columns: 170px 170px 130px;
+  }
+  .metaSmall,
+  .metaInline {
+    min-width: 0;
+    overflow: hidden;
+  }
+  .metaSmall {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .metaInput,
+  .textarea {
+    display: none;
+  }
+  .metaBox .printText {
+    display: block;
+    background: #fff;
+    min-height: 2.6em;
+    padding: 3px 6px;
+    border-radius: 2px;
+  }
+  .metaInputSmall {
+    background: #fff;
+    font-size: 8pt;
+  }
+  .printText {
+    display: block;
+  }
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: 54mm 54mm 34mm;
+    grid-template-areas:
+      "partners inputs  value skills   users resources"
+      "partners outputs value trainers users channels"
+      "costs    costs   costs revenue  revenue revenue";
+  }
+  .block {
+    min-height: 0;
+    overflow: hidden;
+    padding: 6px 8px;
+  }
+  .blockLabel {
+    font-size: 10pt;
+  }
+  .credit {
+    font-size: 7pt;
+  }
+}
