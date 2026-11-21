@@ -2,6 +2,8 @@ import Link from "next/link";
 import { supabase, type Post } from "@/lib/supabase";
 import PageHeader from "@/components/PageHeader";
 import EmptyState from "@/components/EmptyState";
+import { ArrowIcon } from "@/components/Icons";
+import { FOUNDATIONS_PATH, LIVE_TOPICS, TOPICS } from "@/lib/foundations";
 
 export const metadata = {
   title: "AI Vocabulary — Ivaylo Benliyski",
@@ -31,6 +33,34 @@ export default async function Vocabulary() {
         intro="AI moves fast and speaks in acronyms. These are the terms worth actually understanding — explained without the fluff."
       />
 
+      <section className="mb-14" aria-labelledby="foundations-heading">
+        <Link
+          href={FOUNDATIONS_PATH}
+          className="group relative block overflow-hidden rounded-3xl border border-sage/40 bg-card p-7 sm:p-10 hover:border-fg/50 transition-colors"
+        >
+          <FoundationsArt />
+          <div className="relative max-w-xl">
+            <p className="font-tech text-xs text-sage uppercase tracking-[0.18em] mb-3">Start here · Foundations</p>
+            <h2 id="foundations-heading" className="font-tech text-3xl md:text-4xl font-bold tracking-tight text-fg mb-3">
+              What is AI?
+            </h2>
+            <p className="font-casual text-fg/70 text-lg leading-relaxed mb-6">
+              An interactive map of the fundamentals — the history, how machines learn, and the main kinds of models —
+              explained in plain language, with sources.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+              <span className="inline-flex items-center gap-2 font-tech text-sm font-semibold bg-fg text-bg px-5 py-2.5 rounded-full group-hover:bg-white transition-colors">
+                Open the map <ArrowIcon size={15} />
+              </span>
+              <span className="font-tech text-sm text-fg/50">
+                {LIVE_TOPICS.length} of {TOPICS.length} topics live
+              </span>
+            </div>
+          </div>
+        </Link>
+      </section>
+
+      <h2 className="font-tech text-xs text-sage uppercase tracking-[0.18em] mb-4">Terms</h2>
       {entries.length === 0 ? (
         <EmptyState message="The first batch of AI terms is being decoded." />
       ) : (
@@ -51,5 +81,33 @@ export default async function Vocabulary() {
         </ul>
       )}
     </div>
+  );
+}
+
+/** Decorative mini node-map in the corner of the Foundations card. */
+function FoundationsArt() {
+  return (
+    <svg
+      viewBox="0 0 320 220"
+      className="absolute -right-10 -bottom-8 w-[300px] sm:w-[380px] opacity-30 sm:opacity-50 pointer-events-none"
+      aria-hidden="true"
+    >
+      <g fill="none" stroke="var(--sage)" strokeWidth="1.5">
+        <path d="M40 60 C 100 60, 100 120, 160 120" />
+        <path d="M40 170 C 100 170, 100 120, 160 120" />
+        <path d="M160 120 C 210 120, 210 50, 250 50" strokeDasharray="4 5" />
+        <path d="M160 120 C 210 120, 210 190, 250 190" strokeDasharray="4 5" />
+        <path d="M250 50 C 285 50, 285 120, 295 120" strokeDasharray="4 5" />
+        <path d="M250 190 C 285 190, 285 120, 295 120" strokeDasharray="4 5" />
+      </g>
+      <g fill="var(--bg)" stroke="var(--fg)" strokeWidth="1.5">
+        <circle cx="40" cy="60" r="9" />
+        <circle cx="40" cy="170" r="9" fill="var(--sage)" stroke="var(--sage)" />
+        <circle cx="160" cy="120" r="11" />
+        <circle cx="250" cy="50" r="8" />
+        <circle cx="250" cy="190" r="8" />
+        <circle cx="295" cy="120" r="8" />
+      </g>
+    </svg>
   );
 }
