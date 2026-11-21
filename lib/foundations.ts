@@ -96,7 +96,7 @@ export const TOPICS: Topic[] = [
     tagline: "Text, images and sound in one model",
     summary:
       "Why the line between language and vision models has mostly disappeared, and what it means when one model can read, look and listen.",
-    status: "soon",
+    status: "live",
     cluster: "model-types",
     leadsTo: [],
     pos: { x: 90, y: 52 },
