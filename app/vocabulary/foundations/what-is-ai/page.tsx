@@ -270,7 +270,7 @@ export default function WhatIsAI() {
               <Spectrum />
             </Figure>
             <p>
-              <strong>Artificial general intelligence (AGI)</strong> is the idea of AI that matches people across most thinking tasks.
+              <strong>Artificial general intelligence (AGI)</strong>{" "}is the idea of AI that matches people across most thinking tasks.
               Researchers don&apos;t agree on what exactly counts; one proposal from Google DeepMind suggests grading it in levels, the way
               self-driving cars are graded, rather than treating it as a single finish line.{c("levels-agi")} Be sceptical of anyone
               announcing it has been “achieved” without saying which definition they mean.

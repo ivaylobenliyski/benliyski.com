@@ -63,7 +63,7 @@ export const TOPICS: Topic[] = [
     tagline: "Data, training and neural networks",
     summary:
       "What “training” actually means: examples, mistakes, small adjustments, repeat. Neural networks explained without the maths.",
-    status: "soon",
+    status: "live",
     cluster: "how-it-works",
     leadsTo: ["language-models", "vision-models"],
     pos: { x: 45, y: 52 },
