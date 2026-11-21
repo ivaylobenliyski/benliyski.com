@@ -28,6 +28,13 @@ const TOOLS = [
       "A fillable one-page strategy map for an AI product. Autosaves as you type; download as PNG, PDF or JSON.",
     tags: ["Strategy", "Template"],
   },
+  {
+    href: "/projects/ai-roi",
+    name: "AI ROI Calculator",
+    description:
+      "Model costs and benefits of an AI initiative with your own categories, adoption ramp, risk adjustment and scenarios. Get ROI, NPV, IRR and payback.",
+    tags: ["Finance", "Calculator"],
+  },
 ];
 
 const statusLabel: Record<string, string> = {
