@@ -85,7 +85,7 @@ export const TOPICS: Topic[] = [
     tagline: "How computers learn to see",
     summary:
       "From reading handwritten digits to spotting tumours in scans: how models turn pixels into meaning.",
-    status: "soon",
+    status: "live",
     cluster: "model-types",
     leadsTo: ["multimodal-models"],
     pos: { x: 74, y: 82 },
