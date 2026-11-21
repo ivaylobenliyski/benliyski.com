@@ -296,14 +296,14 @@ export default function ROICalculator() {
         />
         <button
           onClick={() => {
-            if (confirm("Replace your model with the worked example?")) {
+            if (confirm("Reset everything to the starting example? Your current inputs will be lost.")) {
               setModel(exampleModel());
-              setNotice("Example loaded");
+              setNotice("Reset to the starting example");
             }
           }}
-          className={`${btn} text-fg/60 hover:text-fg`}
+          className={btnGhost}
         >
-          Load example
+          ↺ Reset
         </button>
         <button
           onClick={() => {
