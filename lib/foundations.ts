@@ -41,7 +41,7 @@ export const TOPICS: Topic[] = [
     tagline: "AI vs. machine learning vs. deep learning",
     summary:
       "A plain-language definition of artificial intelligence, and how it relates to machine learning, deep learning and generative AI — the nested circles everyone talks about.",
-    status: "soon",
+    status: "live",
     cluster: "big-picture",
     leadsTo: ["history-of-ai", "how-machines-learn"],
     pos: { x: 13, y: 30 },
