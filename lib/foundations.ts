@@ -77,7 +77,7 @@ export const TOPICS: Topic[] = [
       "Models that learn from text to predict what comes next — and why that simple trick turns into writing, coding and conversation.",
     status: "live",
     cluster: "model-types",
-    leadsTo: ["multimodal-models", "ai-agents"],
+    leadsTo: ["multimodal-models", "prompt-engineering"],
     pos: { x: 54, y: 22 },
   },
   {
@@ -103,6 +103,17 @@ export const TOPICS: Topic[] = [
     pos: { x: 69, y: 52 },
   },
   {
+    slug: "prompt-engineering",
+    title: "Prompt engineering",
+    tagline: "How to ask AI for what you actually want",
+    summary:
+      "Why wording changes the answer, and the handful of techniques that reliably help: clear instructions, context, examples, structure and room to think.",
+    status: "live",
+    cluster: "in-action",
+    leadsTo: ["ai-agents"],
+    pos: { x: 89, y: 24 },
+  },
+  {
     slug: "ai-agents",
     title: "AI agents",
     tagline: "Models that plan, use tools and act",
@@ -111,7 +122,7 @@ export const TOPICS: Topic[] = [
     status: "live",
     cluster: "in-action",
     leadsTo: ["ai-safety"],
-    pos: { x: 89, y: 30 },
+    pos: { x: 89, y: 54 },
   },
   {
     slug: "ai-safety",
@@ -122,7 +133,7 @@ export const TOPICS: Topic[] = [
     status: "live",
     cluster: "in-action",
     leadsTo: [],
-    pos: { x: 89, y: 74 },
+    pos: { x: 89, y: 84 },
   },
 ];
 
