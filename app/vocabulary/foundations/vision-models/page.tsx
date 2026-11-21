@@ -238,8 +238,6 @@ export default function VisionModels() {
             </Link>
             .
           </p>
-
-          <Sources sources={SOURCES} />
         </article>
         <aside>
           <OnThisPage items={TOC} />
@@ -247,6 +245,10 @@ export default function VisionModels() {
       </div>
 
       <KeepGoing slug="vision-models" />
+
+      <div className="max-w-3xl mt-16">
+        <Sources sources={SOURCES} />
+      </div>
     </div>
   );
 }

@@ -285,11 +285,13 @@ export default function HistoryOfAI() {
             "Breakthroughs came when data, computing power and algorithms improved together.",
           ]}
         />
-
-        <Sources sources={SOURCES} />
       </div>
 
       <KeepGoing slug="history-of-ai" />
+
+      <div className="max-w-3xl mt-16">
+        <Sources sources={SOURCES} />
+      </div>
     </div>
   );
 }

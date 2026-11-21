@@ -54,23 +54,31 @@ const TOOLS = [
 ];
 
 export function ToolsFigure() {
-  const R = 110;
+  const R = 110; // distance from the centre to each tool
+  const CORE = 44; // radius of the "language model" circle
+  const TOOL = 28; // radius of each tool circle
   return (
     <div className="grid md:grid-cols-[1fr_1fr] gap-6 items-center">
       <svg viewBox="0 0 300 300" className="w-full max-w-[320px] mx-auto block" role="img" aria-label="A language model in the centre, connected to tools such as web search, calendar, files, code, screen and email">
         {TOOLS.map((t, i) => {
           const a = (i / TOOLS.length) * Math.PI * 2 - Math.PI / 2;
-          const x = 150 + R * Math.cos(a);
-          const y = 150 + R * Math.sin(a);
+          const cos = Math.cos(a);
+          const sin = Math.sin(a);
+          const x = 150 + R * cos;
+          const y = 150 + R * sin;
           return (
             <g key={t.name}>
-              <line x1="150" y1="150" x2={x} y2={y} stroke="var(--sage)" strokeOpacity="0.5" strokeWidth="1.5" strokeDasharray="4 4" />
-              <circle cx={x} cy={y} r="28" fill="var(--bg)" stroke="var(--line)" strokeWidth="1.5" />
+              {/* Runs edge to edge, so it never passes under either circle. */}
+              <line x1={150 + CORE * cos} y1={150 + CORE * sin} x2={150 + (R - TOOL) * cos} y2={150 + (R - TOOL) * sin} stroke="var(--sage)" strokeOpacity="0.5" strokeWidth="1.5" strokeDasharray="4 4" />
+              <circle cx={x} cy={y} r={TOOL} fill="var(--bg)" stroke="var(--line)" strokeWidth="1.5" />
               <text x={x} y={y + 7} textAnchor="middle" fontSize="20">{t.icon}</text>
             </g>
           );
         })}
-        <circle cx="150" cy="150" r="44" fill="var(--sage)" fillOpacity="0.2" stroke="var(--fg)" strokeWidth="2" />
+        {/* Opaque base matching the figure card (bg-card/60 over the page bg), then the sage tint on top. */}
+        <circle cx="150" cy="150" r={CORE} fill="var(--bg)" />
+        <circle cx="150" cy="150" r={CORE} fill="var(--card)" fillOpacity="0.6" />
+        <circle cx="150" cy="150" r={CORE} fill="var(--sage)" fillOpacity="0.2" stroke="var(--fg)" strokeWidth="2" />
         <text x="150" y="146" textAnchor="middle" fontSize="13" fontWeight="600" fontFamily="var(--font-space-grotesk)" fill="var(--fg)">language</text>
         <text x="150" y="162" textAnchor="middle" fontSize="13" fontWeight="600" fontFamily="var(--font-space-grotesk)" fill="var(--fg)">model</text>
       </svg>
@@ -114,23 +122,40 @@ export function DoublingFigure() {
 
 /* ── Hero art ───────────────────────────────────────────────────────────── */
 
+const LOOP = { cx: 150, cy: 112, r: 80, gap: 24 }; // gap: degrees left clear on each side of a label
+const LOOP_LABELS = ["think", "act", "observe"]; // at 0°, 120° and 240°, clockwise from 12 o'clock
+
+/** Point on the loop circle at `deg` degrees clockwise from 12 o'clock. */
+function loopPoint(deg: number, r = LOOP.r) {
+  const t = (deg * Math.PI) / 180;
+  return { x: LOOP.cx + r * Math.sin(t), y: LOOP.cy - r * Math.cos(t) };
+}
+
 export function HeroArt() {
   return (
     <svg viewBox="0 0 300 220" className="absolute -right-4 -top-6 w-[210px] md:w-[340px] opacity-20 md:opacity-35 pointer-events-none" aria-hidden="true">
       <defs>
-        <marker id="ag-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        {/* refX at the tip, so each arrowhead ends exactly where its arc ends. */}
+        <marker id="ag-arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
           <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--sage)" />
         </marker>
       </defs>
       <g fill="none" stroke="var(--sage)" strokeWidth="2">
-        <path d="M 150 30 A 80 80 0 0 1 225 140" markerEnd="url(#ag-arrow)" />
-        <path d="M 210 175 A 80 80 0 0 1 90 175" markerEnd="url(#ag-arrow)" />
-        <path d="M 75 140 A 80 80 0 0 1 135 32" markerEnd="url(#ag-arrow)" />
+        {LOOP_LABELS.map((label, i) => {
+          const start = loopPoint(i * 120 + LOOP.gap);
+          const end = loopPoint((i + 1) * 120 - LOOP.gap);
+          return <path key={label} d={`M ${start.x} ${start.y} A ${LOOP.r} ${LOOP.r} 0 0 1 ${end.x} ${end.y}`} markerEnd="url(#ag-arrow)" />;
+        })}
       </g>
-      <g fontFamily="var(--font-space-grotesk)" fontSize="15" fill="var(--fg)" textAnchor="middle">
-        <text x="150" y="20">think</text>
-        <text x="255" y="165">act</text>
-        <text x="45" y="165">observe</text>
+      <g fontFamily="var(--font-space-grotesk)" fontSize="15" fill="var(--fg)" textAnchor="middle" dominantBaseline="central">
+        {LOOP_LABELS.map((label, i) => {
+          const p = loopPoint(i * 120);
+          return (
+            <text key={label} x={p.x} y={p.y}>
+              {label}
+            </text>
+          );
+        })}
       </g>
     </svg>
   );

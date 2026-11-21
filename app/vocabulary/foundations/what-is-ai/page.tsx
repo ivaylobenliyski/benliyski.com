@@ -331,8 +331,6 @@ export default function WhatIsAI() {
             </Link>
             , from the first artificial neuron in 1943 to today.
           </p>
-
-          <Sources sources={SOURCES} />
         </article>
         <aside>
           <OnThisPage items={TOC} />
@@ -340,6 +338,10 @@ export default function WhatIsAI() {
       </div>
 
       <KeepGoing slug="what-is-ai" />
+
+      <div className="max-w-3xl mt-16">
+        <Sources sources={SOURCES} />
+      </div>
     </div>
   );
 }
