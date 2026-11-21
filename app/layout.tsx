@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 
 const lora = Lora({
   variable: "--font-lora",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   style: ["normal", "italic"],
   display: "swap",
 });
