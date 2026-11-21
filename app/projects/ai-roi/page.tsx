@@ -1,12 +1,12 @@
-import Link from "next/link";
 import { Manrope, Space_Grotesk } from "next/font/google";
-import PageHeader from "@/components/PageHeader";
+import { LangProvider } from "./i18n";
+import RoiHeader from "./RoiHeader";
 import ROICalculator from "./ROICalculator";
 
 export const metadata = {
-  title: "ИИ ROI калкулатор — Ivaylo Benliyski",
+  title: "AI ROI Calculator · ИИ ROI калкулатор — Ivaylo Benliyski",
   description:
-    "Изчислете възвръщаемостта на ИИ инициатива: собствени типове разходи и ползи, ползи по двигатели, крива на внедряване, корекция за риск, сценарии, NPV, IRR и откупуване.",
+    "Model the return on an AI initiative, in English or Bulgarian: custom cost and benefit types, driver-based benefits, adoption ramp, risk adjustment, scenarios, NPV, IRR and payback.",
 };
 
 // Space Grotesk has no Cyrillic glyphs; Manrope fills them in, letter for letter, while Latin stays in Space Grotesk.
@@ -16,22 +16,12 @@ const techFont = `${spaceGrotesk.style.fontFamily.split(",")[0]}, ${cyrillic.sty
 
 export default function AIROIPage() {
   return (
-    <div
-      lang="bg"
+    <LangProvider
       className="max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-24 print:p-0 print:max-w-none"
       style={{ ["--font-space-grotesk" as string]: techFont, fontFamily: techFont }}
     >
-      <div className="print:hidden">
-        <Link href="/projects" className="inline-block font-tech text-sm text-fg/60 hover:text-fg transition-colors mb-8">
-          ← Всички проекти
-        </Link>
-        <PageHeader
-          eyebrow="Проекти · Инструмент"
-          title="ИИ ROI калкулатор"
-          intro="Изградете бизнес казуса за ИИ инициатива: опишете какво струва и какво връща, задайте колко бързо хората я възприемат и колко сте уверени — и вижте как ROI, NPV и откупуването се обновяват в реално време."
-        />
-      </div>
+      <RoiHeader />
       <ROICalculator />
-    </div>
+    </LangProvider>
   );
 }
