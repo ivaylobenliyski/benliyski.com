@@ -250,8 +250,6 @@ export default function HowMachinesLearn() {
             </Link>
             .
           </p>
-
-          <Sources sources={SOURCES} />
         </article>
         <aside>
           <OnThisPage items={TOC} />
@@ -259,6 +257,10 @@ export default function HowMachinesLearn() {
       </div>
 
       <KeepGoing slug="how-machines-learn" />
+
+      <div className="max-w-3xl mt-16">
+        <Sources sources={SOURCES} />
+      </div>
     </div>
   );
 }
