@@ -74,7 +74,7 @@ export const TOPICS: Topic[] = [
     tagline: "How ChatGPT, Claude and Gemini work",
     summary:
       "Models that learn from text to predict what comes next — and why that simple trick turns into writing, coding and conversation.",
-    status: "soon",
+    status: "live",
     cluster: "model-types",
     leadsTo: ["multimodal-models"],
     pos: { x: 74, y: 22 },
