@@ -240,8 +240,6 @@ export default function LanguageModels() {
             </Link>
             .
           </p>
-
-          <Sources sources={SOURCES} />
         </article>
         <aside>
           <OnThisPage items={TOC} />
@@ -249,6 +247,10 @@ export default function LanguageModels() {
       </div>
 
       <KeepGoing slug="language-models" />
+
+      <div className="max-w-3xl mt-16">
+        <Sources sources={SOURCES} />
+      </div>
     </div>
   );
 }

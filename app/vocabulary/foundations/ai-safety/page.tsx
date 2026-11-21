@@ -260,8 +260,6 @@ export default function AISafety() {
             Safety matters most when AI can act on its own — see {link("ai-agents", "AI agents")}. For how training shapes behaviour, see{" "}
             {link("how-machines-learn", "How machines learn")}.
           </p>
-
-          <Sources sources={SOURCES} />
         </article>
         <aside>
           <OnThisPage items={TOC} />
@@ -269,6 +267,10 @@ export default function AISafety() {
       </div>
 
       <KeepGoing slug="ai-safety" />
+
+      <div className="max-w-3xl mt-16">
+        <Sources sources={SOURCES} />
+      </div>
     </div>
   );
 }
