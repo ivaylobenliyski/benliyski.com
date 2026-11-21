@@ -40,7 +40,7 @@ export default function CashFlowChart({ rows, fmt, fmtShort }: { rows: YearRow[]
 
   return (
     <figure className="relative m-0">
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto block" role="img" aria-label="Net cash flow and cumulative position by year">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto block" role="img" aria-label="Нетен паричен поток и кумулативна позиция по години">
         {ticks.map((t) => (
           <g key={t}>
             <line x1={M.left} x2={W - M.right} y1={y(t)} y2={y(t)} stroke="currentColor" strokeOpacity={t === 0 ? 0.45 : 0.1} strokeWidth={1} />
@@ -63,7 +63,7 @@ export default function CashFlowChart({ rows, fmt, fmtShort }: { rows: YearRow[]
             <g key={r.year}>
               <path d={d} fill={pos ? COLOR_BENEFIT : COLOR_COST} opacity={hover === null || hover === i ? 1 : 0.55} />
               <text x={cx(i)} y={H - 8} textAnchor="middle" fontSize="12" fill="currentColor" fillOpacity={0.65}>
-                {r.year === 0 ? "Start" : `Y${r.year}`}
+                {r.year === 0 ? "Старт" : `Г${r.year}`}
               </text>
             </g>
           );
@@ -92,18 +92,18 @@ export default function CashFlowChart({ rows, fmt, fmtShort }: { rows: YearRow[]
           className="pointer-events-none absolute top-2 z-10 rounded-lg border border-line bg-bg/95 px-3 py-2 font-tech text-xs shadow-lg whitespace-nowrap min-w-[11rem]"
           style={{ left: `${(cx(hover) / W) * 100}%`, transform: `translateX(${hover > rows.length / 2 ? "-105%" : "5%"})` }}
         >
-          <p className="font-semibold text-fg mb-1">{h.year === 0 ? "Start (Year 0)" : `Year ${h.year}`}</p>
-          <p className="flex justify-between gap-4 text-fg/70">Benefits <span className="text-fg tabular-nums">{fmt(h.benefits)}</span></p>
-          <p className="flex justify-between gap-4 text-fg/70">Costs <span className="text-fg tabular-nums">{fmt(h.costs)}</span></p>
-          <p className="flex justify-between gap-4 text-fg/70">Net <span className="text-fg tabular-nums">{fmt(h.net)}</span></p>
-          <p className="flex justify-between gap-4 text-fg/70">Cumulative <span className="text-fg tabular-nums">{fmt(h.cumulative)}</span></p>
+          <p className="font-semibold text-fg mb-1">{h.year === 0 ? "Старт (година 0)" : `Година ${h.year}`}</p>
+          <p className="flex justify-between gap-4 text-fg/70">Ползи <span className="text-fg tabular-nums">{fmt(h.benefits)}</span></p>
+          <p className="flex justify-between gap-4 text-fg/70">Разходи <span className="text-fg tabular-nums">{fmt(h.costs)}</span></p>
+          <p className="flex justify-between gap-4 text-fg/70">Нето <span className="text-fg tabular-nums">{fmt(h.net)}</span></p>
+          <p className="flex justify-between gap-4 text-fg/70">Кумулативно <span className="text-fg tabular-nums">{fmt(h.cumulative)}</span></p>
         </div>
       )}
 
       <figcaption className="flex flex-wrap gap-x-4 gap-y-1 mt-2 font-tech text-xs text-fg/65">
-        <span className="inline-flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: COLOR_BENEFIT }} />Net gain in year</span>
-        <span className="inline-flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: COLOR_COST }} />Net spend in year</span>
-        <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 bg-fg" />Cumulative position</span>
+        <span className="inline-flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: COLOR_BENEFIT }} />Нетна печалба за годината</span>
+        <span className="inline-flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ background: COLOR_COST }} />Нетен разход за годината</span>
+        <span className="inline-flex items-center gap-1.5"><span className="w-4 h-0.5 bg-fg" />Кумулативна позиция</span>
       </figcaption>
     </figure>
   );

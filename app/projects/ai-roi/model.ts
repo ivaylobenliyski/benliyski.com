@@ -58,32 +58,32 @@ export type Model = { settings: Settings; expenses: Expense[]; benefits: Benefit
 export const MAX_YEARS = 5;
 
 export const SCENARIOS: { id: ScenarioId; label: string }[] = [
-  { id: "pessimistic", label: "Pessimistic" },
-  { id: "realistic", label: "Realistic" },
-  { id: "optimistic", label: "Optimistic" },
+  { id: "pessimistic", label: "Песимистичен" },
+  { id: "realistic", label: "Реалистичен" },
+  { id: "optimistic", label: "Оптимистичен" },
 ];
 
 export const CURRENCIES = ["EUR", "USD", "GBP", "BGN", "CHF"];
 
 export const DEFAULT_EXPENSE_TYPES = [
-  "Development & integration",
-  "Licences & subscriptions",
-  "Infrastructure & compute",
-  "Data preparation",
-  "Talent & training",
-  "Change management",
-  "Maintenance & monitoring",
-  "Governance & compliance",
+  "Разработка и интеграция",
+  "Лицензи и абонаменти",
+  "Инфраструктура и изчисления",
+  "Подготовка на данни",
+  "Екип и обучение",
+  "Управление на промяната",
+  "Поддръжка и мониторинг",
+  "Управление и съответствие",
 ];
 
 export const DEFAULT_BENEFIT_TYPES = [
-  "Labour / time savings",
-  "Cost reduction",
-  "Revenue uplift",
-  "Risk reduction",
-  "Quality improvement",
-  "Customer experience",
-  "Employee experience",
+  "Спестено време / труд",
+  "Намаляване на разходи",
+  "Ръст на приходите",
+  "Намаляване на риска",
+  "Подобрено качество",
+  "Клиентско изживяване",
+  "Изживяване на служителите",
 ];
 
 /** Driver-based benefit formulas. Each returns an ANNUAL value before adjustments. */
@@ -97,45 +97,45 @@ export const METHODS: Record<
   }
 > = {
   fixed: {
-    label: "Fixed amount",
-    help: "A known saving or gain, e.g. a contract you can cancel.",
-    fields: [{ key: "amount", label: "Amount", unit: "money" }],
+    label: "Фиксирана сума",
+    help: "Известна икономия или печалба, напр. договор, който можете да прекратите.",
+    fields: [{ key: "amount", label: "Сума", unit: "money" }],
     annual: (b) => (b.inputs.amount ?? 0) * (b.inputs.perMonth ? 12 : 1),
   },
   time: {
-    label: "Time saved",
-    help: "Minutes saved per task × tasks per person per month × people × 12 × hourly cost.",
+    label: "Спестено време",
+    help: "Спестени минути на задача × задачи на човек месечно × хора × 12 × цена на час.",
     fields: [
-      { key: "minutes", label: "Minutes saved per task" },
-      { key: "tasks", label: "Tasks per person / month" },
-      { key: "people", label: "People affected" },
-      { key: "rate", label: "Loaded hourly cost", unit: "money" },
+      { key: "minutes", label: "Спестени минути на задача" },
+      { key: "tasks", label: "Задачи на човек / месец" },
+      { key: "people", label: "Засегнати хора" },
+      { key: "rate", label: "Пълна цена на час", unit: "money" },
     ],
     annual: (b) =>
       ((b.inputs.minutes ?? 0) / 60) * (b.inputs.tasks ?? 0) * (b.inputs.people ?? 0) * 12 * (b.inputs.rate ?? 0),
   },
   volume: {
-    label: "Volume × value",
-    help: "Extra units per year × value per unit, e.g. extra conversions × margin.",
+    label: "Обем × стойност",
+    help: "Допълнителни единици годишно × стойност на единица, напр. допълнителни продажби × марж.",
     fields: [
-      { key: "units", label: "Units per year" },
-      { key: "value", label: "Value per unit", unit: "money" },
+      { key: "units", label: "Единици годишно" },
+      { key: "value", label: "Стойност на единица", unit: "money" },
     ],
     annual: (b) => (b.inputs.units ?? 0) * (b.inputs.value ?? 0),
   },
   risk: {
-    label: "Risk avoided",
-    help: "Expected incidents per year × cost per incident × % reduction thanks to AI.",
+    label: "Избегнат риск",
+    help: "Очаквани инциденти годишно × цена на инцидент × % намаление благодарение на ИИ.",
     fields: [
-      { key: "incidents", label: "Incidents per year", step: 0.1 },
-      { key: "cost", label: "Cost per incident", unit: "money" },
-      { key: "reduction", label: "Reduction", unit: "%" },
+      { key: "incidents", label: "Инциденти годишно", step: 0.1 },
+      { key: "cost", label: "Цена на инцидент", unit: "money" },
+      { key: "reduction", label: "Намаление", unit: "%" },
     ],
     annual: (b) => (b.inputs.incidents ?? 0) * (b.inputs.cost ?? 0) * ((b.inputs.reduction ?? 0) / 100),
   },
   custom: {
-    label: "Custom factors",
-    help: "Multiply any factors you like. Add, rename or remove them.",
+    label: "Собствени фактори",
+    help: "Умножете произволни фактори. Добавяйте, преименувайте или премахвайте.",
     fields: [],
     annual: (b) => {
       if (!b.factors.length) return 0;
@@ -166,8 +166,8 @@ export const newBenefit = (type = DEFAULT_BENEFIT_TYPES[0]): Benefit => ({
   method: "time",
   inputs: {},
   factors: [
-    { id: uid(), label: "Factor A", value: 0 },
-    { id: uid(), label: "Factor B", value: 0 },
+    { id: uid(), label: "Фактор А", value: 0 },
+    { id: uid(), label: "Фактор Б", value: 0 },
   ],
   customPeriod: "year",
   startYear: 1,
@@ -199,45 +199,45 @@ export const emptyModel = (): Model => ({ settings: defaultSettings(), expenses:
 /** A worked example: an AI assistant for a 25-person customer-support team. */
 export const exampleModel = (): Model => {
   const s = defaultSettings();
-  s.name = "Customer-support AI assistant";
+  s.name = "ИИ асистент за клиентска поддръжка";
   const e = (p: Partial<Expense>): Expense => ({ ...newExpense(), ...p, id: uid() });
   const b = (p: Partial<Benefit>): Benefit => ({ ...newBenefit(), ...p, id: uid() });
   return {
     settings: s,
     expenses: [
-      e({ name: "Build & CRM integration", type: "Development & integration", kind: "one-time", amount: 60000, year: 0 }),
-      e({ name: "Knowledge-base clean-up", type: "Data preparation", kind: "one-time", amount: 15000, year: 0 }),
-      e({ name: "Team training & rollout", type: "Change management", kind: "one-time", amount: 12000, year: 0 }),
-      e({ name: "LLM API usage", type: "Infrastructure & compute", kind: "recurring", amount: 1800, period: "month", year: 1, growth: 10 }),
-      e({ name: "Platform seats", type: "Licences & subscriptions", kind: "recurring", amount: 9000, period: "year", year: 1 }),
-      e({ name: "Monitoring & prompt upkeep", type: "Maintenance & monitoring", kind: "recurring", amount: 1500, period: "month", year: 1 }),
+      e({ name: "Разработка и интеграция с CRM", type: "Разработка и интеграция", kind: "one-time", amount: 60000, year: 0 }),
+      e({ name: "Почистване на базата знания", type: "Подготовка на данни", kind: "one-time", amount: 15000, year: 0 }),
+      e({ name: "Обучение и внедряване в екипа", type: "Управление на промяната", kind: "one-time", amount: 12000, year: 0 }),
+      e({ name: "Използване на LLM API", type: "Инфраструктура и изчисления", kind: "recurring", amount: 1800, period: "month", year: 1, growth: 10 }),
+      e({ name: "Лицензи за платформата", type: "Лицензи и абонаменти", kind: "recurring", amount: 9000, period: "year", year: 1 }),
+      e({ name: "Мониторинг и поддръжка на промптове", type: "Поддръжка и мониторинг", kind: "recurring", amount: 1500, period: "month", year: 1 }),
     ],
     benefits: [
       b({
-        name: "Faster ticket handling",
-        type: "Labour / time savings",
+        name: "По-бърза обработка на запитвания",
+        type: "Спестено време / труд",
         method: "time",
         inputs: { minutes: 5, tasks: 300, people: 25, rate: 32 },
         confidence: 80,
       }),
       b({
-        name: "Fewer escalations to tier 2",
-        type: "Cost reduction",
+        name: "По-малко ескалации към второ ниво",
+        type: "Намаляване на разходи",
         method: "volume",
         inputs: { units: 1800, value: 22 },
         confidence: 70,
       }),
       b({
-        name: "Fewer compliance slips in replies",
-        type: "Risk reduction",
+        name: "По-малко нарушения на правилата в отговорите",
+        type: "Намаляване на риска",
         method: "risk",
         inputs: { incidents: 4, cost: 8000, reduction: 40 },
         confidence: 60,
         applyRamp: false,
       }),
       b({
-        name: "Higher CSAT → retention",
-        type: "Customer experience",
+        name: "По-висока удовлетвореност → задържане на клиенти",
+        type: "Клиентско изживяване",
         nature: "soft",
         method: "volume",
         inputs: { units: 30, value: 1200 },
