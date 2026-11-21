@@ -30,7 +30,7 @@ export default function AICircles({ rings }: { rings: Ring[] }) {
           {rings.map((ring, i) => {
             const g = GEOMETRY[i];
             const on = ring.id === active;
-            const labelY = g.cy - g.r + 26;
+            const labelY = g.cy - g.r + (i === 0 ? 40 : 26);
             return (
               <g
                 key={ring.id}
@@ -63,7 +63,7 @@ export default function AICircles({ rings }: { rings: Ring[] }) {
                   x="200"
                   y={labelY}
                   textAnchor="middle"
-                  fontSize={i === 3 ? 16 : 17}
+                  fontSize={i === 0 ? 15 : i === 3 ? 16 : 17}
                   fontWeight="600"
                   fontFamily="var(--font-space-grotesk)"
                   fill="var(--fg)"

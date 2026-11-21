@@ -50,7 +50,7 @@ export default function WhatIsAI() {
     {
       id: "ai",
       label: "Artificial intelligence",
-      short: "Artificial intelligence",
+      short: "Artificial intelligence (AI)",
       since: "Named in 1955",
       definition: (
         <>
