@@ -153,7 +153,7 @@ export default function AISafety() {
           <div className="mb-16 md:mb-20 font-casual text-[17px] md:text-lg text-fg/80 leading-relaxed">
             <Callout label="Why it matters">
               A game is harmless. But the same gap — between what we can measure and what we mean — shows up in real systems: a model
-              rewarded for answers people <em>like</em> can learn to tell them what they want to hear rather than what&apos;s correct.{c("sycophancy")} The more capable the system, the
+              rewarded for answers people <em>like</em> can learn to tell them what they want to hear rather than what&apos;s correct.{c("sycophancy")}{" "}The more capable the system, the
               better it gets at finding loopholes.
             </Callout>
           </div>
@@ -161,13 +161,13 @@ export default function AISafety() {
           <Section id="training" kicker="Building in good behaviour" title="Teaching models to behave">
             <p>
               Today&apos;s chatbots are shaped after pre-training to be helpful and avoid harm. People rate model answers and the model is
-              trained towards the preferred ones — <strong>reinforcement learning from human feedback</strong>.{c("instructgpt")} Anthropic&apos;s{" "}
+              trained towards the preferred ones — <strong>reinforcement learning from human feedback</strong>.{c("instructgpt")}{" "}Anthropic&apos;s{" "}
               <strong>Constitutional AI</strong> adds a short list of written principles: the model critiques and revises its own answers
               against them, reducing the need for human labels.{c("constitutional")}
             </p>
             <p>
               Before release, models are <strong>red-teamed</strong>: people deliberately try to make them misbehave, so problems can be
-              fixed first.{c("red-teaming")} No single defence is perfect, so safety relies on several layers whose gaps don&apos;t line up.
+              fixed first.{c("red-teaming")}{" "}No single defence is perfect, so safety relies on several layers whose gaps don&apos;t line up.
             </p>
             <Figure wide caption="The “Swiss cheese” idea from safety engineering: each layer has holes, but stacked together they stop far more problems.">
               <DefenceLayers />
@@ -198,9 +198,9 @@ export default function AISafety() {
             </p>
             <p>
               Governments are involved too. At the UK&apos;s Bletchley Park summit in November 2023, 28 countries plus the EU signed a
-              declaration on managing risks from frontier AI.{c("bletchley")} The UK set up an AI Safety Institute to test models, renamed the
-              AI Security Institute in February 2025.{c("aisi-rename")} The EU went furthest with a law: the{" "}
-              <strong>AI Act</strong> sorts uses of AI by risk.{c("eu-ai-act")} Can you place these?
+              declaration on managing risks from frontier AI.{c("bletchley")}{" "}The UK set up an AI Safety Institute to test models, renamed the
+              AI Security Institute in February 2025.{c("aisi-rename")}{" "}The EU went furthest with a law: the{" "}
+              <strong>AI Act</strong> sorts uses of AI by risk.{c("eu-ai-act")}{" "}Can you place these?
             </p>
           </Section>
           <Figure wide caption="Simplified from the EU AI Act. Real classification depends on details and context, and obligations phase in over several years.">

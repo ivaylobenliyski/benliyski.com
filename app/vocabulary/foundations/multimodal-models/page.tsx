@@ -128,9 +128,9 @@ export default function MultimodalModels() {
               your fridge and ask what to cook, or point your camera at a sign in another language and hear it read back in yours.
             </p>
             <p>
-              The idea built up over a few years: CLIP linked images and captions in 2021,{c("clip")} DeepMind&apos;s Flamingo answered
+              The idea built up over a few years: CLIP linked images and captions in 2021,{c("clip")}{" "}DeepMind&apos;s Flamingo answered
               questions about images in 2022,{c("flamingo")} and open models like LLaVA connected a vision encoder to a language model in
-              2023.{c("llava")} Google described its Gemini models, announced in December 2023, as multimodal from the start.{c("gemini")}
+              2023.{c("llava")}{" "}Google described its Gemini models, announced in December 2023, as multimodal from the start.{c("gemini")}
             </p>
           </Section>
 
@@ -149,7 +149,7 @@ export default function MultimodalModels() {
           <Section id="tokens" kicker="Under the hood" title="Everything becomes tokens">
             <p>
               Once images and sound can be turned into tokens, a single transformer can process them all together. Images are cut into
-              patches, as in vision transformers;{c("vit")} audio is sliced into short chunks.{c("whisper")} Your question and your photo
+              patches, as in vision transformers;{c("vit")} audio is sliced into short chunks.{c("whisper")}{" "}Your question and your photo
               become one sequence.
             </p>
             <Figure wide caption="A simplified view. Exact designs differ between models, and some generate images or audio as well as reading them.">
@@ -184,12 +184,12 @@ export default function MultimodalModels() {
             <p>
               Multimodal models inherit the weaknesses of both language and vision models. They can <strong>describe objects that aren&apos;t
               in the image</strong> — a 2023 study found several popular vision-language models suffered from severe “object
-              hallucination”.{c("pope")} Exact counts, tiny text and precise positions are other common weak spots, so double-check anything that matters.
+              hallucination”.{c("pope")}{" "}Exact counts, tiny text and precise positions are other common weak spots, so double-check anything that matters.
             </p>
             <Callout label="A new kind of attack">
               Because these models follow instructions, anything they read can contain instructions — including images and audio.
               Researchers showed that an instruction blended invisibly into a picture or sound clip could steer a multimodal model&apos;s
-              answers.{c("injection")} Be careful letting a model act on content from sources you don&apos;t trust.
+              answers.{c("injection")}{" "}Be careful letting a model act on content from sources you don&apos;t trust.
             </Callout>
           </Section>
 

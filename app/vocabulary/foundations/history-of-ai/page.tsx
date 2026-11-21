@@ -150,14 +150,14 @@ export default function HistoryOfAI() {
               Five years later, four researchers — John McCarthy, Marvin Minsky, Nathaniel Rochester and Claude Shannon — asked for
               funding for a summer workshop at Dartmouth College. Their proposal coined the term <strong>“artificial intelligence”</strong>{" "}
               and set out a bold bet: that every aspect of learning or intelligence could, in principle, be described so precisely that a
-              machine could simulate it.{c("dartmouth")} The workshop ran in summer 1956, and the field had a name.
+              machine could simulate it.{c("dartmouth")}{" "}The workshop ran in summer 1956, and the field had a name.
             </p>
           </Section>
 
           <Section id="perceptron" kicker="1958–1969" title="Try it: the perceptron">
             <p>
               In 1958, psychologist Frank Rosenblatt built the <strong>perceptron</strong>: an artificial neuron that could{" "}
-              <em>learn</em> its own weights from examples, instead of having them set by hand.{c("rosenblatt")} It caused huge
+              <em>learn</em> its own weights from examples, instead of having them set by hand.{c("rosenblatt")}{" "}It caused huge
               excitement. Then, in 1969, Marvin Minsky and Seymour Papert published a book showing what a single perceptron{" "}
               <em>can&apos;t</em> learn.{c("perceptrons-book")}
             </p>
@@ -182,7 +182,7 @@ export default function HistoryOfAI() {
             <p>
               But the big promises — machine translation, general problem solving, robots that understood the world — weren&apos;t
               delivered. In 1973, a report by mathematician Sir James Lighthill for the UK Science Research Council concluded that AI
-              had failed to achieve its grand ambitions.{c("lighthill")} British funding for AI research was sharply cut, and US funding
+              had failed to achieve its grand ambitions.{c("lighthill")}{" "}British funding for AI research was sharply cut, and US funding
               agencies also became more cautious in the mid-1970s. This became known as the <strong>first AI winter</strong>.{c("agar", "aima")}
             </p>
             <p>
@@ -200,19 +200,19 @@ export default function HistoryOfAI() {
             <p>
               While rule-based AI struggled, neural networks were quietly fixed. In 1986, David Rumelhart, Geoffrey Hinton and Ronald
               Williams showed how <strong>backpropagation</strong> could train networks with hidden layers: run an example through,
-              measure the error, then pass it backwards to nudge every weight a little.{c("backprop")} The underlying maths had been
+              measure the error, then pass it backwards to nudge every weight a little.{c("backprop")}{" "}The underlying maths had been
               worked out earlier — this paper made it famous.{c("schmidhuber")}
             </p>
             <p>
               Progress was real but slow. In 1997, IBM&apos;s Deep Blue beat world chess champion Garry Kasparov — though mostly by
-              searching through enormous numbers of positions, not by learning.{c("deep-blue")} In 1998, Yann LeCun&apos;s team showed that
-              convolutional neural networks could read handwritten digits, including on bank cheques.{c("lenet")} And in 2009, Fei-Fei
+              searching through enormous numbers of positions, not by learning.{c("deep-blue")}{" "}In 1998, Yann LeCun&apos;s team showed that
+              convolutional neural networks could read handwritten digits, including on bank cheques.{c("lenet")}{" "}And in 2009, Fei-Fei
               Li&apos;s team released <strong>ImageNet</strong>, a huge collection of labelled images that became the field&apos;s favourite
               benchmark.{c("imagenet")}
             </p>
             <p>
               Then, in 2012, everything clicked. A deep neural network called <strong>AlexNet</strong> won the ImageNet challenge with a
-              top-5 error rate of 15.3% — the next-best entry had 26.2%.{c("alexnet")} Within a few years, almost the whole industry
+              top-5 error rate of 15.3% — the next-best entry had 26.2%.{c("alexnet")}{" "}Within a few years, almost the whole industry
               had switched to deep learning.
             </p>
             <Figure caption="Why 2012? Three ingredients finally arrived at the same time. Figures from the AlexNet paper.">
@@ -227,27 +227,27 @@ export default function HistoryOfAI() {
           <Section id="generative" kicker="2017–today" title="The generative era">
             <p>
               In 2017, a team at Google published <strong>“Attention Is All You Need”</strong>, introducing the{" "}
-              <strong>transformer</strong>.{c("transformer")} Its key trick, “attention”, lets the model weigh every word in a passage
+              <strong>transformer</strong>.{c("transformer")}{" "}Its key trick, “attention”, lets the model weigh every word in a passage
               against every other word at once. Transformers are the “T” in GPT, and almost every modern language model is built on them.
             </p>
             <p>
               Researchers then found that making these models bigger and training them on more text kept making them more capable. In 2020,
-              GPT-3 could take on new tasks from just a few examples typed into the prompt.{c("gpt3")} The same year, DeepMind&apos;s
+              GPT-3 could take on new tasks from just a few examples typed into the prompt.{c("gpt3")}{" "}The same year, DeepMind&apos;s
               AlphaFold 2 predicted protein structures with accuracy competitive with lab experiments in most cases.{c("alphafold")}
             </p>
             <p>
-              On 30 November 2022, OpenAI released <strong>ChatGPT</strong> as a free research preview.{c("chatgpt")} AI went from a
+              On 30 November 2022, OpenAI released <strong>ChatGPT</strong> as a free research preview.{c("chatgpt")}{" "}AI went from a
               research topic to something anyone could talk to.
             </p>
             <Callout label="Recognition and rules">
               In 2024, AI pioneers won two Nobel prizes: Physics for John Hopfield and Geoffrey Hinton&apos;s work on neural networks, and half
-              of Chemistry for Demis Hassabis and John Jumper&apos;s AlphaFold.{c("nobel-physics", "nobel-chemistry")} The same year, the
+              of Chemistry for Demis Hassabis and John Jumper&apos;s AlphaFold.{c("nobel-physics", "nobel-chemistry")}{" "}The same year, the
               EU&apos;s AI Act came into force on 1 August, the first broad law regulating AI, with its rules phasing in over several years.{c("eu-ai-act")}
             </Callout>
             <p>
               The newest shift is <strong>reasoning models</strong>. OpenAI&apos;s o1 (September 2024) and DeepSeek-R1 (January 2025,
               later peer-reviewed in <em>Nature</em>) were trained with reinforcement learning to work through a problem step by step before
-              answering.{c("o1", "deepseek-r1")} Instead of only building bigger models, you can also give a model more time to think when you ask it something.
+              answering.{c("o1", "deepseek-r1")}{" "}Instead of only building bigger models, you can also give a model more time to think when you ask it something.
             </p>
             <p>
               What these models actually are, and how they learn, is the next stop on the map:{" "}
