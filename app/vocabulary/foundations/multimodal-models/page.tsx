@@ -214,8 +214,6 @@ export default function MultimodalModels() {
             </Link>
             .
           </p>
-
-          <Sources sources={SOURCES} />
         </article>
         <aside>
           <OnThisPage items={TOC} />
@@ -223,6 +221,10 @@ export default function MultimodalModels() {
       </div>
 
       <KeepGoing slug="multimodal-models" />
+
+      <div className="max-w-3xl mt-16">
+        <Sources sources={SOURCES} />
+      </div>
     </div>
   );
 }
