@@ -99,7 +99,7 @@ export default function AIAgents() {
 
       <Breadcrumb title="AI agents" />
       <ArticleHero
-        eyebrow="Foundations · AI in action"
+        eyebrow="Foundations · AI in the world"
         title={TITLE}
         intro="A chatbot answers. An agent gets things done: it plans, uses tools, checks the results and keeps going until the job is finished — or it gets stuck."
         readingMinutes={10}

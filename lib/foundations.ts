@@ -32,7 +32,7 @@ export const CLUSTERS: Record<Cluster, { label: string; blurb: string }> = {
   "big-picture": { label: "The big picture", blurb: "What AI is and how we got here." },
   "how-it-works": { label: "How it works", blurb: "How machines learn from data." },
   "model-types": { label: "Kinds of models", blurb: "What different models are built to do." },
-  "in-action": { label: "AI in action", blurb: "Systems that use models to get things done." },
+  "in-action": { label: "AI in the world", blurb: "Putting AI to work — and keeping it safe." },
 };
 
 export const TOPICS: Topic[] = [
@@ -110,8 +110,19 @@ export const TOPICS: Topic[] = [
       "What happens when a model doesn't just answer, but takes steps: searching, using apps, writing code and checking its own work — and why that's powerful and risky.",
     status: "live",
     cluster: "in-action",
+    leadsTo: ["ai-safety"],
+    pos: { x: 89, y: 30 },
+  },
+  {
+    slug: "ai-safety",
+    title: "AI safety",
+    tagline: "Risks, alignment and keeping AI in check",
+    summary:
+      "From biased decisions and deepfakes today to keeping far more capable systems under control: what can go wrong, how researchers and lawmakers respond, and what's still debated.",
+    status: "live",
+    cluster: "in-action",
     leadsTo: [],
-    pos: { x: 89, y: 52 },
+    pos: { x: 89, y: 74 },
   },
 ];
 
