@@ -208,14 +208,11 @@ export default function MultimodalModels() {
           />
 
           <p className="mb-16 font-casual text-lg text-fg/75 leading-relaxed">
-            That completes the Foundations map. Revisit any topic from the{" "}
-            <Link href="/vocabulary/foundations" className="text-fg underline decoration-sage underline-offset-4 hover:decoration-fg">
-              map
+            Next on the map: what happens when a model that can read, see and hear is given tools and a goal —{" "}
+            <Link href={topicHref("ai-agents")} className="text-fg underline decoration-sage underline-offset-4 hover:decoration-fg">
+              AI agents
             </Link>
-            , or start again with{" "}
-            <Link href={topicHref("what-is-ai")} className="text-fg underline decoration-sage underline-offset-4 hover:decoration-fg">
-              What is AI?
-            </Link>
+            .
           </p>
 
           <Sources sources={SOURCES} />
