@@ -4,22 +4,22 @@ Live prototype of **Hans**, the AI offer assistant of **AluPlast Demo**, a *fict
 (university case study). Source of truth, docs and evals: `ivaylobenliyski/University` →
 `projects/aluplast_demo/`.
 
-**URL:** `https://benliyski.com/hans/<HANS_DEMO_TOKEN>` – the secret token *is* the password. Any other token
-returns 404. The pages are `noindex`, send no Referer, are not in the sitemap or nav, and Google Analytics is
-switched off on them (the token must not reach GA).
-Sales-team view: `/hans/<token>/team` (leads, appointments, e-mailed offers, hand-offs, feedback, token cost).
+**URL:** `https://benliyski.com/hans` – behind the browser's login prompt (HTTP Basic Auth, `proxy.ts`), with the
+user name and password from `HANS_USER` / `HANS_PASSWORD`. If either is unset, nobody gets in. The pages are
+`noindex`, send no Referer, are not in the sitemap or nav, and Google Analytics is switched off on them.
+Sales-team view: `/hans/team` (leads, appointments, e-mailed offers, hand-offs, feedback, token cost).
 
 ## Setup (once)
 1. **Supabase:** run `supabase/hans_demo.sql` in the SQL editor (3 tables, RLS on, no public policies).
 2. **Vercel environment variables** (Production + Preview):
    | Variable | Value |
    |---|---|
-   | `HANS_DEMO_TOKEN` | a long random string, e.g. `openssl rand -hex 16` (min. 16 chars) |
+   | `HANS_USER` / `HANS_PASSWORD` | the login for `/hans` |
    | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project settings → API → service_role key (server-only, never `NEXT_PUBLIC_`) |
    | `ANTHROPIC_API_KEY` | already set for the Telegram bot |
    | `HANS_MODEL` *(optional)* | default `claude-opus-5-5` |
    | `HANS_DAILY_CHATS` *(optional)* | max new conversations per 24 h, default 100 |
-3. Redeploy, open `/hans/<token>`.
+3. Redeploy, open `/hans`.
 
 ## How it works
 - `generated.ts` – price list, rules, Hans's system prompt + knowledge base, fixed texts and parity cases,

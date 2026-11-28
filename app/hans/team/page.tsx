@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { MODEL } from "@/lib/hans/agent";
-import { validToken } from "@/lib/hans/auth";
+import { authorized } from "@/lib/hans/auth";
 import { db } from "@/lib/hans/db";
 import type { HansState } from "@/lib/hans/state";
 import s from "../HansDemo.module.css";
@@ -18,9 +19,8 @@ type Fb = { chat_id: string; rating: string; comment: string | null; outcome: st
 const usd = (u: Usage) => (u.input * PRICE.input + u.output * PRICE.output + u.cache_read * PRICE.cache_read + u.cache_write * PRICE.cache_write) / 1e6;
 const t = (iso: string) => iso.slice(0, 16).replace("T", " ");
 
-export default async function Team({ params }: { params: Promise<{ token: string }> }) {
-  const { token } = await params;
-  if (!validToken(token)) notFound();
+export default async function Team() {
+  if (!authorized((await headers()).get("authorization"))) notFound();
   const sb = db();
   if (!sb) return <div className={s.root}><div className={`${s.wrap} ${s.team}`}>Storage is not configured (SUPABASE_SERVICE_ROLE_KEY).</div></div>;
   const [{ data: chatsData }, { data: fbData }] = await Promise.all([
@@ -41,7 +41,7 @@ export default async function Team({ params }: { params: Promise<{ token: string
     <div className={s.root} lang="bg">
       <div className={s.demoBanner}>Sales team view – AluPlast Demo (fictional company, university project)</div>
       <div className={`${s.wrap} ${s.team}`}>
-        <p><a href={`/hans/${token}`}>← back to the demo website</a></p>
+        <p><a href="/hans">← back to the demo website</a></p>
         <h1>What Hans produced</h1>
         <div className={s.kpis}>
           <span>Conversations: <b>{active.length}</b></span>

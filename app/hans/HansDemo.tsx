@@ -14,7 +14,7 @@ const fmt0 = (n: string) => Number(n).toLocaleString("bg-BG", { maximumFractionD
 const when = (slot: string) =>
   new Date(slot.replace(" ", "T")).toLocaleDateString("bg-BG", { weekday: "short", day: "2-digit", month: "2-digit" }) + ", " + slot.slice(11);
 
-export default function HansDemo({ token }: { token: string }) {
+export default function HansDemo() {
   const [open, setOpen] = useState(false);
   const [chatId, setChatId] = useState<string | null>(null);
   const [items, setItems] = useState<Item[]>([]);
@@ -38,7 +38,7 @@ export default function HansDemo({ token }: { token: string }) {
   useEffect(() => { logRef.current?.scrollTo({ top: logRef.current.scrollHeight }); }, [items, busy]);
 
   async function api(path: string, body: object) {
-    const r = await fetch(`/api/hans/${token}/${path}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const r = await fetch(`/api/hans/${path}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
     const data = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(data.error || "Грешка");
     return data;
@@ -120,7 +120,7 @@ export default function HansDemo({ token }: { token: string }) {
         </span>
         <nav className={s.nav} aria-label="Навигация на демото">
           <a href="#products">Продукти</a><a href="#glass">Стъклопакети</a><a href="#about">Защо ние</a><a href="#contact">Контакти</a>
-          <a href={`/hans/${token}/team`}>Екип (демо)</a>
+          <a href="/hans/team">Екип (демо)</a>
         </nav>
       </div></header>
 

@@ -1,9 +1,9 @@
-/** Shared logic for the /api/hans/[token]/* route handlers. */
+/** Shared logic for the /api/hans/* route handlers. */
 import { randomBytes } from "node:crypto";
 import { NextResponse } from "next/server";
 import type Anthropic from "@anthropic-ai/sdk";
 import { emptyUsage, hansTurn, type Usage } from "./agent";
-import { validToken } from "./auth";
+import { authorized } from "./auth";
 import { bookSlot, db, takenSlots } from "./db";
 import { OPENING, WIDGET_NOTICE } from "./generated";
 import { sofiaToday } from "./slots";
@@ -15,7 +15,6 @@ const DAILY_CHATS = Number(process.env.HANS_DAILY_CHATS || 100);
 const HEADERS = { "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow", "Referrer-Policy": "no-referrer" };
 
 export const json = (body: unknown, status = 200) => NextResponse.json(body, { status, headers: HEADERS });
-const notFound = () => json({ error: "not found" }, 404);
 
 type Row = { id: string; turns: number; messages: Anthropic.Beta.BetaMessageParam[]; state: HansState; transcript: { role: string; text: string }[]; usage: Usage; log: unknown[] };
 
@@ -29,9 +28,8 @@ export function publicState(s: HansState) {
   };
 }
 
-async function guard(params: Promise<{ token: string }>) {
-  const { token } = await params;
-  if (!validToken(token)) return { error: notFound() };
+function guard(req: Request) {
+  if (!authorized(req.headers.get("authorization"))) return { error: json({ error: "unauthorized" }, 401) };
   const sb = db();
   if (!sb) return { error: json({ error: "storage not configured (SUPABASE_SERVICE_ROLE_KEY)" }, 503) };
   return { sb };
@@ -46,8 +44,8 @@ async function body(req: Request): Promise<Record<string, unknown>> {
   }
 }
 
-export async function start(params: Promise<{ token: string }>) {
-  const g = await guard(params);
+export async function start(req: Request) {
+  const g = guard(req);
   if (g.error) return g.error;
   const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
   const { count } = await g.sb.from("hans_chats").select("id", { count: "exact", head: true }).gte("created_at", since);
@@ -59,8 +57,8 @@ export async function start(params: Promise<{ token: string }>) {
   return json({ chat_id: id, reply: OPENING, notice: WIDGET_NOTICE, state: publicState(state) });
 }
 
-export async function message(req: Request, params: Promise<{ token: string }>) {
-  const g = await guard(params);
+export async function message(req: Request) {
+  const g = guard(req);
   if (g.error) return g.error;
   const b = await body(req);
   const text = String(b.text ?? "").trim();
@@ -96,8 +94,8 @@ export async function message(req: Request, params: Promise<{ token: string }>) 
   return json({ reply, state: publicState(saveMessages ? state : row.state) });
 }
 
-export async function feedback(req: Request, params: Promise<{ token: string }>) {
-  const g = await guard(params);
+export async function feedback(req: Request) {
+  const g = guard(req);
   if (g.error) return g.error;
   const b = await body(req);
   if (b.rating !== "up" && b.rating !== "down") return json({ error: "rating must be up or down" }, 400);
