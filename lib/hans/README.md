@@ -36,3 +36,10 @@ Sales-team view: `/hans/team` (leads, appointments, e-mailed offers, hand-offs, 
 ```bash
 npx tsx lib/hans/selftest.ts   # parity with the Python engine + checker, consent gate, agent loop (no API calls)
 ```
+
+## Conversation viewer (sales team)
+
+- `/hans/team/chats`: every stored conversation, 50 per page. Filters: words (all must appear in the transcript, the chat id or the contact), outcome, 👍/👎 feedback, date range (Sofia time), checker blocks, tool failures, hand-offs.
+- `/hans/team/chats/<id>`: transcript per turn, with that turn's tool calls (input/output), blocked drafts plus checker problems and the corrected reply, tokens and cost, feedback, contact, quotes/e-mails/appointments/hand-offs and the raw model history.
+- `/api/hans/team/export?format=json|csv&<same filters>` or `?id=<chat>`: JSON gives full chat records; CSV gives one row per customer turn. Exports include contact data (fictional in the demo; retention is 2 years, see `supabase/hans_demo.sql`).
+- Everything is behind the Basic Auth in `proxy.ts`, re-checked in each page/route, `noindex` and `no-store`. Shared logic lives in `lib/hans/review.ts`.

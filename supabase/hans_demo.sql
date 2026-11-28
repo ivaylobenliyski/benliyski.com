@@ -39,3 +39,11 @@ create index if not exists hans_chats_created_idx on public.hans_chats (created_
 alter table public.hans_chats        enable row level security;
 alter table public.hans_appointments enable row level security;
 alter table public.hans_feedback     enable row level security;
+
+-- Retention: conversations (and, via ON DELETE CASCADE, their feedback and appointments) are kept for 2 years.
+-- Needs the pg_cron extension (Supabase: Database → Extensions → pg_cron). Runs daily at 03:17 UTC.
+create or replace function public.hans_purge_old() returns void language sql security definer set search_path = public as $$
+  delete from public.hans_chats where created_at < now() - interval '2 years';
+$$;
+revoke all on function public.hans_purge_old() from public, anon, authenticated;
+-- select cron.schedule('hans-purge-2y', '17 3 * * *', 'select public.hans_purge_old()');
