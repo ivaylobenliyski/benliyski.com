@@ -50,6 +50,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lora.variable} ${spaceGrotesk.variable} h-full`}>
       <head>
+        {/* No analytics on the password-protected Hans demo. */}
+        <Script id="ga-skip-hans" strategy="beforeInteractive">{`
+          if (/^\/hans(\/|$)/.test(location.pathname)) window['ga-disable-G-3GLEN3FTPV'] = true;
+        `}</Script>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-3GLEN3FTPV" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
