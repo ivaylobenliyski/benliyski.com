@@ -85,3 +85,6 @@
 .table th{background:#eef5f9}
 .pre{white-space:pre-wrap;background:#fff;border:1px solid var(--line);padding:10px;font-size:13px}
 .scroll{overflow-x:auto}
+/* team pages: the site's global CSS resets link styles, so make links visible again */
+.team a:not(.btn){color:var(--brand2);text-decoration:underline;text-underline-offset:2px}
+.team a.btn{text-decoration:none;margin-bottom:8px}
