@@ -40,8 +40,9 @@ export default async function Team() {
     <div className={s.root} lang="bg">
       <div className={s.demoBanner}>Sales team view – AluPlast Demo (fictional company, university project)</div>
       <div className={`${s.wrap} ${s.team}`}>
-        <p><a href="/hans">← back to the demo website</a> · <Link href="/hans/team/chats"><b>Review conversations →</b></Link></p>
+        <p><a href="/hans">← back to the demo website</a></p>
         <h1>What Hans produced</h1>
+        <p><Link className={s.btn} href="/hans/team/chats">Review conversations →</Link></p>
         <div className={s.kpis}>
           <span>Conversations: <b>{active.length}</b></span>
           <span>Offer / appointment: <b>{completed.length}</b></span>
