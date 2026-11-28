@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { MODEL } from "@/lib/hans/agent";
 import { authorized } from "@/lib/hans/auth";
 import { db } from "@/lib/hans/db";
+import { PRICE, usd } from "@/lib/hans/review";
 import type { HansState } from "@/lib/hans/state";
 import s from "../HansDemo.module.css";
 
 export const metadata: Metadata = { title: "Hans – sales team view", robots: { index: false, follow: false }, referrer: "no-referrer" };
 export const dynamic = "force-dynamic";
 
-// List prices per 1M tokens (USD) for the default model, Nov 2026 – update if the model or prices change.
-const PRICE = { input: 4, output: 20, cache_read: 0.2, cache_write: 5 };
 type Usage = { input: number; output: number; cache_read: number; cache_write: number; requests: number };
 type Chat = { id: string; created_at: string; updated_at: string; outcome: string; turns: number; state: HansState; usage: Usage };
 type Fb = { chat_id: string; rating: string; comment: string | null; outcome: string; created_at: string };
 
-const usd = (u: Usage) => (u.input * PRICE.input + u.output * PRICE.output + u.cache_read * PRICE.cache_read + u.cache_write * PRICE.cache_write) / 1e6;
 const t = (iso: string) => iso.slice(0, 16).replace("T", " ");
 
 export default async function Team() {
@@ -41,7 +40,7 @@ export default async function Team() {
     <div className={s.root} lang="bg">
       <div className={s.demoBanner}>Sales team view – AluPlast Demo (fictional company, university project)</div>
       <div className={`${s.wrap} ${s.team}`}>
-        <p><a href="/hans">← back to the demo website</a></p>
+        <p><a href="/hans">← back to the demo website</a> · <Link href="/hans/team/chats"><b>Review conversations →</b></Link></p>
         <h1>What Hans produced</h1>
         <div className={s.kpis}>
           <span>Conversations: <b>{active.length}</b></span>
@@ -59,7 +58,7 @@ export default async function Team() {
           {active.map((c) => {
             const q = c.state.quotes?.at(-1);
             const u = c.usage ?? ({} as Usage);
-            return (<tr key={c.id}><td>{c.id}</td><td>{t(c.updated_at)}</td><td>{c.outcome}</td><td>{c.turns}</td>
+            return (<tr key={c.id}><td><Link href={`/hans/team/chats/${c.id}`}>{c.id}</Link></td><td>{t(c.updated_at)}</td><td>{c.outcome}</td><td>{c.turns}</td>
               <td>{Object.entries(c.state.contact ?? {}).map(([k, v]) => `${k}: ${v}`).join(", ")}</td>
               <td>{q ? `${q.range_low} – ${q.range_high} €` : "–"}</td>
               <td>{u.input ?? 0} / {u.output ?? 0} / {u.cache_read ?? 0}</td><td>${usd(u).toFixed(3)}</td></tr>);
