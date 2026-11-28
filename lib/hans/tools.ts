@@ -54,7 +54,7 @@ const item = obj(
 );
 
 export const TOOLS: Anthropic.Beta.BetaTool[] = [
-  { name: "quote_price", description: "Calculate the indicative price for the customer's windows from the official price list. ALWAYS use this for any price, discount or delivery date; never calculate yourself. Set competitor_offer=true only if the customer said they have a cheaper offer elsewhere.",
+  { name: "quote_price", description: "Calculate the indicative price for the customer's windows from the official price list. ALWAYS use this for any price, discount or delivery date; never calculate yourself. Set competitor_offer=true only if the customer said they have a cheaper offer elsewhere. The LATEST call becomes the offer shown to the customer and used for e-mails, so when comparing variants call it once per variant and, after the customer chooses, once more for the chosen one.",
     input_schema: obj({ items: { type: "array", items: item }, competitor_offer: { type: "boolean" } }, ["items"]) },
   { name: "preview_offer_email", description: "Prepare (NOT send) the offer e-mail for the latest quote. Use when the customer wants the offer by e-mail. Then ask the customer to confirm.",
     input_schema: obj({ email: { type: "string" }, customer_name: { type: "string" } }, ["email"]) },

@@ -21,6 +21,7 @@ type Row = { id: string; turns: number; messages: Anthropic.Beta.BetaMessagePara
 export function publicState(s: HansState) {
   return {
     quote: s.quotes.at(-1) ?? null,
+    quotes: s.quotes, // all quotes so far; the widget shows the new ones (several in one turn = a comparison)
     emails_sent: s.emailsSent.map((e) => ({ to: e.to, at: e.at })),
     appointments: s.appointments.map(({ kind, slot }) => ({ kind, slot })),
     handoff: s.handoffs.length > 0,

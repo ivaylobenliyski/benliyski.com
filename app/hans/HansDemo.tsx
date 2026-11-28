@@ -2,19 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import s from "./HansDemo.module.css";
+import QuickForm, { type ProductType } from "./QuickForm";
 
 type Line = { description: string; quantity: number; total: string };
 type Quote = { lines: Line[]; discount_pct: number; discount_amount: string; range_low: string; range_high: string; earliest_delivery: string };
-type State = { quote: Quote | null; emails_sent: { to: string; at: string }[]; appointments: { kind: string; slot: string }[]; handoff: boolean; outcome: string };
-type Item = { id: number; kind: "bot" | "me" | "event" | "warn" | "offer"; text?: string; quote?: Quote };
+type State = { quote: Quote | null; quotes?: Quote[]; emails_sent: { to: string; at: string }[]; appointments: { kind: string; slot: string }[]; handoff: boolean; outcome: string };
+type Item = { id: number; kind: "bot" | "me" | "event" | "warn" | "offer" | "form"; text?: string; quote?: Quote; title?: string };
 
-const CHIPS = ["Искам оферта за прозорци", "Как да измеря прозореца?", "Какви стъклопакети имате?"];
+const CHIPS = ["Как да измеря прозореца?", "Какви стъклопакети имате?", "Сравнете двоен и троен стъклопакет"];
 const fmt = (n: string) => Number(n).toLocaleString("bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
 const fmt0 = (n: string) => Number(n).toLocaleString("bg-BG", { maximumFractionDigits: 0 }) + " €";
 const when = (slot: string) =>
   new Date(slot.replace(" ", "T")).toLocaleDateString("bg-BG", { weekday: "short", day: "2-digit", month: "2-digit" }) + ", " + slot.slice(11);
 
-export default function HansDemo() {
+export default function HansDemo({ types, formPrefix }: { types: ProductType[]; formPrefix: string }) {
   const [open, setOpen] = useState(false);
   const [chatId, setChatId] = useState<string | null>(null);
   const [items, setItems] = useState<Item[]>([]);
@@ -46,10 +47,12 @@ export default function HansDemo() {
 
   function applyState(st: State) {
     const out: Omit<Item, "id">[] = [];
-    if (st.quote) {
-      const k = "q:" + JSON.stringify(st.quote);
-      if (!seen.current.has(k)) { seen.current.add(k); out.push({ kind: "offer", quote: st.quote }); }
-    }
+    // every quote made this turn gets a card; several in one turn = a comparison, so label them as variants
+    const fresh = (st.quotes ?? (st.quote ? [st.quote] : [])).filter((q) => !seen.current.has("q:" + JSON.stringify(q)));
+    fresh.forEach((q, i) => {
+      seen.current.add("q:" + JSON.stringify(q));
+      out.push({ kind: "offer", quote: q, title: fresh.length > 1 ? `Вариант ${i + 1}` : "Ориентировъчна оферта" });
+    });
     for (const m of st.emails_sent) {
       const k = "m:" + m.at + m.to;
       if (!seen.current.has(k)) { seen.current.add(k); out.push({ kind: "event", text: `✓ Офертата е изпратена на ${m.to}` }); }
@@ -70,11 +73,10 @@ export default function HansDemo() {
       const d = await api("start", {});
       setChatId(d.chat_id);
       setNotice(d.notice);
-      add({ kind: "bot", text: d.reply });
+      add({ kind: "bot", text: d.reply }, { kind: "form" });
     } catch (e) {
       add({ kind: "warn", text: "⚠ " + (e as Error).message });
     }
-    setTimeout(() => inputRef.current?.focus(), 50);
   }
 
   function closeChat() { setOpen(false); setTimeout(() => launchRef.current?.focus(), 50); }
@@ -83,6 +85,7 @@ export default function HansDemo() {
     msg = msg.trim();
     if (!msg || busy || !chatId) return;
     setBusy(true); setChips(false); setText("");
+    setItems((cur) => cur.filter((x) => x.kind !== "form")); // the form is replaced by the message it produced
     add({ kind: "me", text: msg });
     try {
       const d = await api("message", { chat_id: chatId, text: msg });
@@ -176,9 +179,12 @@ export default function HansDemo() {
           <div className={s.notice}>{notice}</div>
           <div className={s.log} ref={logRef} role="log" aria-live="polite">
             {items.map((it) =>
-              it.kind === "offer" && it.quote ? (
+              it.kind === "form" ? (
+                <QuickForm key={it.id} types={types} prefix={formPrefix} disabled={busy || !chatId} onSubmit={send}
+                  onSkip={() => { setItems((cur) => cur.filter((x) => x.kind !== "form")); inputRef.current?.focus(); }} />
+              ) : it.kind === "offer" && it.quote ? (
                 <div key={it.id} className={s.offer}>
-                  <h4>Ориентировъчна оферта</h4>
+                  <h4>{it.title ?? "Ориентировъчна оферта"}</h4>
                   <table><tbody>
                     {it.quote.lines.map((l, i) => (<tr key={i}><td>{l.quantity} × {l.description}</td><td>{fmt(l.total)}</td></tr>))}
                     {it.quote.discount_pct > 0 && (<tr><td>Отстъпка {it.quote.discount_pct}%</td><td>−{fmt(it.quote.discount_amount)}</td></tr>)}
@@ -192,7 +198,7 @@ export default function HansDemo() {
             )}
             {busy && <div className={s.typing}>Ханс пише…</div>}
           </div>
-          {chips && chatId && (
+          {chips && chatId && !items.some((x) => x.kind === "form") && (
             <div className={s.chips}>{CHIPS.map((c) => <button key={c} className={s.chip} type="button" onClick={() => send(c)}>{c}</button>)}</div>
           )}
           {fbOpen && (
